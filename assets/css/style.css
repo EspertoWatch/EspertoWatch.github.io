@@ -232,7 +232,7 @@ section .subtitle-half h5 {
     min-height: 750px;
 }
 .overlay-fluid-block {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0);
     width: 100%;
 }
 .home-overlay-fluid {
@@ -547,15 +547,13 @@ textarea::-ms-input-placeholder
     color: #82ca9c;
     background-color: transparent;
 }
-.navbar-brand{
-    padding-top:22px;	
+.navbar-logo{
+    max-height: 70px;	
 }
 
 
 /*For Home Section*/
 .home{
-    background:url(../images/homebg.jpg) no-repeat center center;
-    color:#000;
     background-size:cover;
     -webkit-background-size:cover;
     -moz-background-size:cover;
@@ -563,18 +561,18 @@ textarea::-ms-input-placeholder
     -ms-background-size:cover;
 }
 .home-wrapper{
-    padding:180px 0px;
+    padding:200px 0px;
     overflow:hidden;
 }
 .home-content h1{
-    font-size:48px;
+    font-size:50px;
     font-weight:700;
     margin-bottom: 30px;
-    color: #fff;
 }
 .home-content p{
     margin-bottom: 30px;
-    color: #fff;
+    font-size: 30px;
+    line-height: 1;
 }
 .home-content .home-contact{
     margin-top: 90px;
