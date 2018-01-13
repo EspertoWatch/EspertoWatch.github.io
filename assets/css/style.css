@@ -644,24 +644,6 @@ textarea::-ms-input-placeholder
     margin-top:3%;
 }
 
-/* feature2 Section */
-.feature2{}
-.feature_content{
-    width: 100%;
-    margin: 0 auto;
-}
-.single_feature2 h2{
-
-    font-size:24px;
-    text-transform:uppercase;
-    color:#222222;
-    margin: 0;
-}
-.single_feature2 p{
-    font-size:18px;
-    color:#777777;
-}
-
 /* gallery Section */
 .port_img{
     position: relative;
