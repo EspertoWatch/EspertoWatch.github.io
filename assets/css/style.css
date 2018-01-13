@@ -918,8 +918,9 @@ xkeyframes
     overflow: hidden;
 }
 
-.community-edition{
+.team-card{
     background:#fff;
+    height:400px;
     padding:40px 15px;
     border:1px solid #ececec;
     box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
@@ -931,26 +932,26 @@ xkeyframes
     -moz-transition:.3s ease-in-out;
     -webkit-transition:.3s ease-in-out;
 }
-.community-edition:hover{
+.team-card:hover{
     background:#82ca9c;
     color:#fff;
 }
-.community-edition:hover i {
+.team-card:hover i {
     color:#fff;
 }
-.community-edition:hover h4 {
+.team-card:hover h4 {
     color:#fff;
 }
-.community-edition:hover p {
+.team-card:hover p {
     color:#fff;
 }
 
-.community-edition i{
+.team-card i{
     font-size:60px;
     color:#82ca9c;
     margin-bottom: 20px;
 }
-.community-edition h4{
+.team-card h4{
     font-size:16px;
     color:#000;
     text-transform:uppercase;
@@ -958,12 +959,34 @@ xkeyframes
     letter-spacing:1px;
     margin-top:15px;
 }
-.community-edition p{
+.team-card p{
     font-size:12px;
     color:#777777;
 }
 .team-wrapper2{
     margin-top:25px;
+}
+.social_media_icons{
+    margin-left:-15px;
+    margin-top:15px;
+}
+.social_media_icons a {
+    margin-left:15px;
+    transition:.5s;
+}
+.social_media_icons a i{
+    color:#222222;
+    border:1px solid #777777;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    border-radius:50%;
+    font-size:16px;
+}
+.social_media_icons a:hover i{
+    color:#8a3b6a;
+    border:1px solid #8a3b6a;
 }
 
 /* Contact Section */
