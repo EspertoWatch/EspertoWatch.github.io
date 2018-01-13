@@ -613,7 +613,7 @@ textarea::-ms-input-placeholder
     margin-right: -3px;
 }
 .head_title {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .head_title p {
     max-width: 55%;
@@ -920,8 +920,8 @@ xkeyframes
 
 .team-card{
     background:#fff;
-    height:400px;
-    padding:40px 15px;
+    height:370px;
+    padding:20px 15px;
     border:1px solid #ececec;
     box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
     -webkit-box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
@@ -958,6 +958,7 @@ xkeyframes
     font-weight:600;
     letter-spacing:1px;
     margin-top:15px;
+    margin-bottom: 5px !important;
 }
 .team-card p{
     font-size:12px;
