@@ -966,6 +966,11 @@ xkeyframes
 .team-wrapper2{
     margin-top:25px;
 }
+.profile-pic{
+    border-radius: 50%;
+    height: 100px;
+    margin-bottom: 15px;
+}
 .social_media_icons{
     margin-left:-15px;
     margin-top:15px;
