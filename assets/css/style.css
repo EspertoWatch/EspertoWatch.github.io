@@ -703,6 +703,24 @@ textarea::-ms-input-placeholder
     opacity: 1;
 }
 
+.carousel-control{
+    background-image: none !important;
+    color:#ddd;
+    width:50px;
+    height: 50px;
+    line-height: 50px;
+    font-size:3rem;
+    text-align: center;
+    top:30%;
+}
+.carousel-control.left{
+    left:-4%;
+}
+.carousel-control.right {
+    right:-4%;
+}
+
+
 
 /*Price Section was here*/
 
