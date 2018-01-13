@@ -36,6 +36,13 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('.popup-img').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+
 
 
     /*---------------------------------------------*
