@@ -685,12 +685,17 @@ textarea::-ms-input-placeholder
     opacity: 1;
 }
 .vertical-carousel-ctrl{
-    padding-top: 10px;
-    font-size:3rem;
+    padding-top: 25px;
+}
+
+.vertical-carousel-ctrl p{
+    margin: 0 !important
 }
 
 .vertical-carousel-ctrl a i{
     color: #ddd;
+    font-size:3rem;
+    margin-top: -10px;
 }
 .carousel-control.left{
     left:-4%;

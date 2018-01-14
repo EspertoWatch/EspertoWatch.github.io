@@ -36,6 +36,16 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('#vertical-carousel-btn').click(function(){
+        console.log($('#vertical-carousel-text')[0].innerText);
+        if($('#vertical-carousel-text')[0].innerText == 'Learn More About Us'){
+            $('#vertical-carousel-text')[0].innerText = 'Meet Our Team Members';
+        }
+        else{
+            $('#vertical-carousel-text')[0].innerText = 'Learn More About Us';
+        }
+    });
+
     $('.popup-img').magnificPopup({
         type: 'image',
         gallery: {
