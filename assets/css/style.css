@@ -684,6 +684,20 @@ textarea::-ms-input-placeholder
 .port_img:hover .port_overlay{
     opacity: 1;
 }
+.vertical-carousel-ctrl{
+    padding-top: 10px;
+    font-size:3rem;
+}
+
+.vertical-carousel-ctrl a i{
+    color: #ddd;
+}
+.carousel-control.left{
+    left:-4%;
+}
+.carousel-control.right {
+    right:-4%;
+}
 
 .carousel-control{
     background-image: none !important;
@@ -695,13 +709,6 @@ textarea::-ms-input-placeholder
     text-align: center;
     top:30%;
 }
-.carousel-control.left{
-    left:-4%;
-}
-.carousel-control.right {
-    right:-4%;
-}
-
 
 
 /*Price Section was here*/
@@ -918,6 +925,16 @@ xkeyframes
     overflow: hidden;
 }
 
+.team-content{
+    height: 370px;
+}
+
+.team-content p{
+    margin-bottom: 30px;
+    font-size: 26px;
+    line-height: 1;
+}
+
 .team-card{
     background:#fff;
     height:370px;
@@ -993,6 +1010,56 @@ xkeyframes
 .social_media_icons a:hover i{
     color:#8a3b6a;
     border:1px solid #8a3b6a;
+}
+
+.vertical .carousel-control{
+    background-image: none !important;
+    color:#ddd;
+    height: 50px;
+    font-size:3rem;
+    text-align: center;
+    top:30%;
+}
+
+.vertical .carousel-inner {
+  height: 100%;
+}
+
+.carousel.vertical .item {
+   -webkit-transition: 0.6s ease-in-out top;
+   -moz-transition: 0.6s ease-in-out top;
+   -ms-transition: 0.6s ease-in-out top;
+   -o-transition: 0.6s ease-in-out top;
+   transition: 0.6s ease-in-out top;
+}
+
+.carousel.vertical .active {
+   top: 0;
+}
+
+.carousel.vertical .next {
+   top: 400px;
+}
+
+.carousel.vertical .prev {
+   top: -400px;
+}
+
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+   top: 0;
+}
+
+.carousel.vertical .active.left {
+   top: -400px;
+}
+
+.carousel.vertical .active.right {
+   top: 400px;
+}
+
+.carousel.vertical .item {
+   left: 0;
 }
 
 /* Contact Section */
