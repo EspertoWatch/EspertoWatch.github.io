@@ -1068,7 +1068,19 @@ xkeyframes
 }
 
 /* Sponsors Section */
-
+.sponsor-img{
+    max-width: 75%;
+    margin-bottom: 25px;
+    opacity: 0.5;
+}
+.sponsor-img:hover{
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+     transform:scale(1.25);
+     opacity: 1;
+}
 /* Contact Section */
 
 .contact_content{
