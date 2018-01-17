@@ -554,6 +554,7 @@ textarea::-ms-input-placeholder
 
 /*For Home Section*/
 .home{
+    background: url(../images/temp-bg.jpg) no-repeat center center;
     background-size:cover;
     -webkit-background-size:cover;
     -moz-background-size:cover;
