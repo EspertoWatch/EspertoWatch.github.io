@@ -648,12 +648,18 @@ textarea::-ms-input-placeholder
     margin-bottom: 40px;
 }
 .feature-img{
-    max-width: 60%;
+    max-width: 50%;
+    margin-bottom: 25px;
+}
+.feature-icon{
     margin-bottom: 25px;
 }
 .feature-text{
     max-width: 90%;
     margin: auto;
+}
+.feature-text h4{
+    margin-bottom: 0.75rem !important;
 }
 
 /* gallery Section */
