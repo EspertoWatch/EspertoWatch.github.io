@@ -75,7 +75,8 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('#contact-button').click(function(){
+    $('#contact-button').click(function(e){
+        e.preventDefault();
         var name = $('#name-field').innerText;
         var email = "austin.atmaja@gmail.com";
         var text = $('#message-field')[0].value;
