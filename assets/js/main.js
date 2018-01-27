@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('#contact-button').click(function(){
-        var name = $('#name-field')[0].value;
+        var name = $('#name-field').innerText;
         var email = "austin.atmaja@gmail.com";
         var text = $('#message-field')[0].value;
         var dataString = 'name='+ name + '&email=' + email + '&text=' + text;
@@ -87,6 +87,9 @@ jQuery(document).ready(function ($) {
             data: dataString,
             success: function(){
                 alert('Contact request sent');
+            },
+            error: function(xhr, status){
+                console.log(xhr.error);
             }
         });
     }); 
