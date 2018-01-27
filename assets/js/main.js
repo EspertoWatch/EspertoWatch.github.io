@@ -77,7 +77,7 @@ jQuery(document).ready(function ($) {
 
     $('#contact-button').click(function(e){
         e.preventDefault();
-        var name = $('#name-field').innerText;
+        var name = $('#name-field')[0].value;
         var email = "austin.atmaja@gmail.com";
         var text = $('#message-field')[0].value;
         var dataString = 'name='+ name + '&email=' + email + '&text=' + text;
