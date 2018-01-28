@@ -976,6 +976,7 @@ xkeyframes
     -moz-transition:.3s ease-in-out;
     -webkit-transition:.3s ease-in-out;
 }
+/*
 .team-card:hover{
     background:#82ca9c;
     color:#fff;
@@ -989,6 +990,7 @@ xkeyframes
 .team-card:hover p {
     color:#fff;
 }
+*/
 
 .team-card i{
     font-size:60px;

@@ -73,28 +73,6 @@ jQuery(document).ready(function ($) {
     $('.scrollup').click(function () {
         $("html, body").animate({scrollTop: 0}, 1000);
         return false;
-    });
-
-    $('#contact-button').click(function(e){
-        e.preventDefault();
-        var name = $('#name-field')[0].value;
-        var email = "austin.atmaja@gmail.com";
-        var text = $('#message-field')[0].value;
-        var dataString = 'name='+ name + '&email=' + email + '&text=' + text;
-
-        $.ajax({
-            type: "POST",
-            url: "email.php",
-            data: dataString,
-            success: function(){
-                alert('Contact request sent');
-            },
-            error: function(xhr, status){
-                console.log(xhr.error);
-            }
-        });
     }); 
-
-
     //End
 });
