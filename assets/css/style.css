@@ -622,6 +622,24 @@ textarea::-ms-input-placeholder
     padding-bottom: 20px;
 }
 
+.contact-line i{
+    display: inline-block;
+    margin-right: 5px;
+}
+.contact-line p{
+    display: inline-block;
+    padding-bottom: 0px !important;
+    margin: 2px auto !important;
+}
+.spacer{
+    padding-right: 25px;
+}
+
+.wider{
+    max-width: 70% !important;
+    padding-bottom: 0px !important;
+}
+
 /* product  section */
 
 .single_product_left img{
