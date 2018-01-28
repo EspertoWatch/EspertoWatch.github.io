@@ -651,6 +651,10 @@ textarea::-ms-input-placeholder
     max-width: 50%;
     margin-bottom: 25px;
 }
+.feature-icon-img{
+    max-height: 75px;
+    width: auto;
+}
 .feature-icon{
     margin-bottom: 25px;
 }
