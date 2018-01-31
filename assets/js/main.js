@@ -53,6 +53,13 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('#contact-button').click(function(){
+            $('#snackbar').addClass('show');
+            setTimeout(function(){  
+                $('#snackbar').removeClass('show'); 
+            }, 3000);
+    });
+
     /*---------------------------------------------*
      * STICKY scroll
      ---------------------------------------------*/
