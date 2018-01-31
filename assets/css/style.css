@@ -675,6 +675,7 @@ textarea::-ms-input-placeholder
 }
 .feature-icon{
     margin-bottom: 25px;
+    color: black;
 }
 .feature-text{
     max-width: 90%;
