@@ -1124,6 +1124,9 @@ xkeyframes
      transform:scale(1.25);
      opacity: 1;
 }
+.sponsor-text p{
+    font-size: 1rem !important;
+}
 /* Contact Section */
 
 .contact_content{
