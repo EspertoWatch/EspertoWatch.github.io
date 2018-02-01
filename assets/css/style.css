@@ -562,17 +562,20 @@ textarea::-ms-input-placeholder
     -ms-background-size:cover;
 }
 .home-wrapper{
-    padding:200px 0px;
+    padding:150px 0px;
     overflow:hidden;
 }
+.home-content{
+    margin-top: 50px;
+}
 .home-content h1{
-    font-size:50px;
+    font-size:3rem;
     font-weight:700;
     margin-bottom: 30px;
 }
 .home-content p{
     margin-bottom: 30px;
-    font-size: 30px;
+    font-size: 1.8rem;
     line-height: 1;
 }
 .home-content .home-contact{
@@ -1126,6 +1129,9 @@ xkeyframes
 }
 .sponsor-text p{
     font-size: 1.2rem !important;
+}
+.sponsor-images-row{
+    border-right: 0.5px solid;
 }
 /* Contact Section */
 

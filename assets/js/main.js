@@ -1,7 +1,29 @@
 "use strict";
 
+function detectmob() { 
+ if( navigator.userAgent.match(/Android/i)
+ || navigator.userAgent.match(/webOS/i)
+ || navigator.userAgent.match(/iPhone/i)
+ || navigator.userAgent.match(/iPad/i)
+ || navigator.userAgent.match(/iPod/i)
+ || navigator.userAgent.match(/BlackBerry/i)
+ || navigator.userAgent.match(/Windows Phone/i)
+ ){
+    return true;
+  }
+ else {
+    return false;
+  }
+}
+
 
 jQuery(document).ready(function ($) {
+
+    if(detectmob() === true){
+        $('#sponsor-images-row').removeClass('sponsor-images-row'); 
+        $('sponsor-row').removeClass('row');
+        $('#sponsor-text').removeClass('col-xs-3');
+    }
 
 
     /*---------------------------------------------*
