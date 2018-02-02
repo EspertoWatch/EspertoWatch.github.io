@@ -1130,7 +1130,7 @@ xkeyframes
 .sponsor-text p{
     font-size: 1.2rem !important;
 }
-@media (min-width: 768px){
+@media (min-width: 990px){
     .sponsor-images-row{
         border-right: 0.5px solid;
     }
