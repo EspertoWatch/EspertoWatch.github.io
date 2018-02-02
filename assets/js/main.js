@@ -18,14 +18,6 @@ function detectmob() {
 
 
 jQuery(document).ready(function ($) {
-
-    if(detectmob() === true){
-        $('#sponsor-images-row').removeClass('sponsor-images-row'); 
-        $('sponsor-row').removeClass('row');
-        $('#sponsor-text').removeClass('col-xs-3');
-    }
-
-
     /*---------------------------------------------*
      * Mobile menu
      ---------------------------------------------*/

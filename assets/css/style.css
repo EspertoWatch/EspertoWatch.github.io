@@ -1130,8 +1130,10 @@ xkeyframes
 .sponsor-text p{
     font-size: 1.2rem !important;
 }
-.sponsor-images-row{
-    border-right: 0.5px solid;
+@media (min-width: 768px){
+    .sponsor-images-row{
+        border-right: 0.5px solid;
+    }
 }
 /* Contact Section */
 
