@@ -1043,6 +1043,7 @@ xkeyframes
 .profile-pic{
     border-radius: 50%;
     width:173px;
+    height: 173px;
     margin-bottom: 15px;
 }
 .social_media_icons{
