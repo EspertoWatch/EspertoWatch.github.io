@@ -33,6 +33,12 @@
         <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+
+        <script>
+          function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+          }
+        </script>
     </head>
 
     <body data-spy="scroll" data-target="#navbar-menu" data-offset="110">
@@ -88,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-xs-12">
-                                <img src="assets/images/PCBCropped.png"></div>
+                            <iframe src="assets/images/pcb.gif" width="403" height="352" frameBorder="0" scrolling="no" class="giphy-embed text-center" onload="resizeIframe(this)"></iframe>
                             </div>
                         </div>
                     </div>
