@@ -569,13 +569,13 @@ textarea::-ms-input-placeholder
     margin-top: 50px;
 }
 .home-content h1{
-    font-size:3rem;
+    font-size:3rem !important;
     font-weight:700;
     margin-bottom: 30px;
 }
 .home-content p{
     margin-bottom: 30px;
-    font-size: 1.8rem;
+    font-size: 1.8rem !important;
     line-height: 1;
 }
 .home-content .home-contact{
