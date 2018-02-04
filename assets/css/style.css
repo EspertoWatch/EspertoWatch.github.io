@@ -998,6 +998,9 @@ xkeyframes
     -moz-transition:.3s ease-in-out;
     -webkit-transition:.3s ease-in-out;
 }
+.team-card p {
+    margin-bottom: 12px !important;
+}
 /*
 .team-card:hover{
     background:#82ca9c;
@@ -1020,24 +1023,26 @@ xkeyframes
     margin-bottom: 20px;
 }
 .team-card h4{
-    font-size:16px;
+    font-size:18px;
     color:#000;
     text-transform:uppercase;
     font-weight:600;
     letter-spacing:1px;
-    margin-top:15px;
+    margin-top:12px !important;
     margin-bottom: 5px !important;
 }
 .team-card p{
     font-size:12px;
     color:#777777;
+    font-weight:400;
+    margin-bottom: 12px !important;
 }
 .team-wrapper2{
     margin-top:25px;
 }
 .profile-pic{
     border-radius: 50%;
-    height: 100px;
+    width:75%;
     margin-bottom: 15px;
 }
 .social_media_icons{
