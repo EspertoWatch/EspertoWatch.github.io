@@ -2,9 +2,6 @@
 
 jQuery(document).ready(function ($) {
     window.location.hash = "#home";
-    if($.browser.chrome){
-        $('#vid').attr("controls", "controls");
-    }
     /*---------------------------------------------*
      * Mobile menu
      ---------------------------------------------*/
@@ -82,5 +79,9 @@ jQuery(document).ready(function ($) {
         $("html, body").animate({scrollTop: 0}, 1000);
         return false;
     }); 
+
+    if($.browser.chrome){
+        $('#vid').attr("controls", "controls");
+    }
     //End
 });
