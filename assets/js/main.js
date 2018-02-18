@@ -2,7 +2,9 @@
 
 jQuery(document).ready(function ($) {
     window.location.hash = "#home";
-
+    if($.browser.chrome){
+        $('#vid').attr("controls", "controls");
+    }
     /*---------------------------------------------*
      * Mobile menu
      ---------------------------------------------*/
