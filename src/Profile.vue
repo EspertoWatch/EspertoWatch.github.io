@@ -1,23 +1,22 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+  <div id="profile">
+    <h1> {{msg}} </h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: 'profile',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Profile Section'
     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
+#profile {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,23 +1,22 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+  <div id="stepCount">
+    <h1> {{msg}} </h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: 'profile',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Step Count Details Section'
     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
+#stepCount {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
