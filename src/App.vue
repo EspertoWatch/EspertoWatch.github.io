@@ -2,7 +2,7 @@
   <div id="app">
     <div class="esperto-navbar">
       <div class="esperto-logo">
-        <img src="./assets/espertoLogo.png">
+        <router-link to="/"><img src="./assets/espertoLogo.png"></router-link>
       </div>
       <div class="nav-logos">
         <router-link to="Profile"><img src="./assets/profile-nav.png"></router-link>
