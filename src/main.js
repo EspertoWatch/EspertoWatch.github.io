@@ -5,8 +5,11 @@ import HeartRate from './HeartRate.vue'
 import StepCount from './StepCount.vue'
 import Home from './Home.vue'
 import VueRouter from 'vue-router'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(VueRouter);
+Vue.use(Vuetify);
 
 const routes = [
 	{ path: '/', component: Home },

@@ -1,16 +1,29 @@
 <template>
   <div id="home">
     <h1> {{msg}} </h1>
+      <v-layout row justify-space-around>
+        <v-flex xs5>
+          <HomeCard></HomeCard>
+        </v-flex>
+        <v-flex xs5>
+          <HomeCard></HomeCard>
+        </v-flex>
+      </v-layout>
   </div>
 </template>
 
 <script>
+import HomeCard from './HomeCard.vue'
+
 export default {
   name: 'home',
   data () {
     return {
       msg: 'Home Section'
     }
+  },
+  components: {
+    HomeCard
   }
 }
 </script>
