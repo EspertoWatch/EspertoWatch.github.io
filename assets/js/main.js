@@ -1,7 +1,6 @@
 "use strict";
 
 jQuery(document).ready(function ($) {
-    window.location.hash = "#home";
     /*---------------------------------------------*
      * Mobile menu
      ---------------------------------------------*/
