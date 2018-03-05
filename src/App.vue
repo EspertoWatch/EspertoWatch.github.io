@@ -2,12 +2,12 @@
   <div id="app">
       <div class="esperto-navbar">
         <div class="esperto-logo">
-          <router-link to="/"><img src="./assets/espertoLogo.png"></router-link>
+          <router-link to="/"><img src="/assets/app-images/espertoLogo.png"></router-link>
         </div>
         <div class="nav-logos">
-          <router-link to="Profile"><img src="./assets/profile-nav.png"></router-link>
-          <router-link to="StepCount"><img src="./assets/step-nav.png"></router-link>
-          <router-link to="HeartRate"><img src="./assets/heart-nav.png"></router-link>
+          <router-link to="Profile"><img src="/assets/app-images/profile-nav.png"></router-link>
+          <router-link to="StepCount"><img src="/assets/app-images/step-nav.png"></router-link>
+          <router-link to="HeartRate"><img src="/assets/app-images/heart-nav.png"></router-link>
         </div>
       </div>
       <router-view></router-view>
