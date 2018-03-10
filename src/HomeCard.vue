@@ -3,8 +3,7 @@
     <v-toolbar extension-height=40vh>
         <v-layout justify-space-around>
           <div class="circle">
-            <img class="circle-icon" 
-            v-bind:src="iconSrc">
+            <router-link :to="link"><img class="circle-icon" v-bind:src="iconSrc"></router-link>     
           </div>
         </v-layout>
         <v-spacer></v-spacer>
@@ -39,10 +38,10 @@
             <div class="divider-container">
               <v-layout row justify-space-between style="margin-bottom: 10px">
                 <v-flex xs6 style="border-right: solid 1px #d3d3d3">
-                  <p> {{tab | getIntervalString}}</p>
+                  <p class="sub-text"> {{tab | getIntervalString}}</p>
                 </v-flex>
                 <v-flex xs6>
-                  <p> {{tab | getAvgString}}</p>
+                  <p class="sub-text"> {{tab | getAvgString}}</p>
                 </v-flex>
               </v-layout>
             </div>
@@ -55,39 +54,38 @@
 <script>
 export default {
   name: 'homeCard',
+  props: {
+    iconSrc: String,
+    title: String,
+    tabs: Array,
+    link: String
+  },
   data () {
     return {
-      iconSrc: "/assets/app-images/heart-nav.png",
-      title: "My Heart Rate",
       tab: null,
-      tabs: [
-        {title: "Daily", mainValue: "80 BPM", lastInterval: {status: 'greater', amount: '2 BPM'}, currentAvg: {status: 'less', amount: '1 BPM'}},
-        {title: "Weekly", mainValue: "78 BPM", lastInterval: {status: 'less', amount: '5 BPM'}, currentAvg: {status: 'less', amount: '3 BPM'}},
-        {title: "Monthly", mainValue: "82 BPM", lastInterval: {status: 'greater', amount: '1 BPM'}, currentAvg: {status: 'greater', amount: '4 BPM'}}
-      ]
     }
   },
   filters:{
     getIntervalString(item){
       if(item.title === "Daily"){
-        return item.lastInterval.amount + " from yesterday.";
+        return item.lastInterval + " from yesterday.";
       }
       else if(item.title === "Weekly"){
-        return item.lastInterval.amount + " from last week."
+        return item.lastInterval + " from last week."
       }
       else if(item.title === "Monthly"){
-        return item.lastInterval.amount + " from last month."
+        return item.lastInterval + " from last month."
       }
     },
     getAvgString(item){
       if(item.title === "Daily"){
-        return item.currentAvg.amount + " from this week's average.";
+        return item.currentAvg + " from this week's average.";
       }
       else if(item.title === "Weekly"){
-        return item.currentAvg.amount + " from this month's average."
+        return item.currentAvg + " from this month's average."
       }
       else if(item.title === "Monthly"){
-        return item.currentAvg.amount + " from this year's average."
+        return item.currentAvg + " from this year's average."
       }
     }
   } 
@@ -117,16 +115,21 @@ export default {
     align-items: center
   }
   .main-value-container{
-    height: 20vh;
+    height: 28vh;
   }
   .divider-container{
-    border-bottom: solid 1px #d3d3d3;
     margin-right: 10px;
     margin-left: 10px;
+    height: 8vh;
   }
   .main-value{
-    font-size: 3rem !important;
+    font-size: 3.2rem !important;
     font-weight: 545; 
-    line-height: 20vh;
+    line-height: 30vh;
+  }
+  .sub-text{
+    font-size: 1.2rem !important;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 </style>
