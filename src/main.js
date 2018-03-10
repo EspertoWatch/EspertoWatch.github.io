@@ -8,9 +8,14 @@ import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css';
 import {store} from './Store'
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
+
+//globally register the icon component
+Vue.component('icon', Icon)
 
 const routes = [
 	{ path: '/', component: Home },

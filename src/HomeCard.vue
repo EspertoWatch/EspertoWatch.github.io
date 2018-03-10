@@ -29,7 +29,7 @@
           </v-tab>
         </v-tabs>
     </v-toolbar> 
-    <v-card height=40vh>
+    <v-card height=35vh>
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="tab in tabs" :key="tab.title" :id="'tab-' + tab.title">
             <div class="main-value-container">
@@ -93,6 +93,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #homeCard{
+    text-align: center
+  }
   .circle{
     width: 7vh;
     height: 7vh;
@@ -115,17 +118,17 @@ export default {
     align-items: center
   }
   .main-value-container{
-    height: 28vh;
+    height: 25vh;
   }
   .divider-container{
     margin-right: 10px;
     margin-left: 10px;
-    height: 8vh;
+    height: 7vh;
   }
   .main-value{
     font-size: 3.2rem !important;
     font-weight: 545; 
-    line-height: 30vh;
+    line-height: 25vh;
   }
   .sub-text{
     font-size: 1.2rem !important;

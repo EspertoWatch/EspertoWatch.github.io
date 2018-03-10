@@ -1,19 +1,33 @@
 <template>
   <div id="home">
-    <h1> {{msg}} </h1>
-      <v-layout row justify-space-around>
-        <v-flex xs5>
-          <HomeCard icon-src="/assets/app-images/step-nav.png" title="My Step Count" v-bind:tabs="stepCountData | getTabs" link="StepCount"></HomeCard>
-        </v-flex>
-        <v-flex xs5>
-          <HomeCard icon-src="/assets/app-images/heart-nav.png" title="My Heart Rate" v-bind:tabs="heartRateData | getTabs" link="HeartRate"></HomeCard>
-        </v-flex>
-      </v-layout>
+    <v-layout row justify-space-around>
+      <v-flex xs11>
+        <p class="welcome"> Welcome {{user.name}}! </p>
+        <v-layout row>
+          <h1 style="margin-right: 10px"> Last Synced: {{device.lastSynced | timestampToDate}} </h1>
+          <icon name="info-circle" scale="2"></icon>
+        </v-layout>
+        <v-layout row>
+          <h1 style="margin-right: 10px"> My Connected Device: {{device.name}} {{device.version}} </h1>
+          <icon name="info-circle" scale="2"></icon>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+    <v-layout row justify-space-around>
+      <v-flex xs5>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" title="My Step Count" v-bind:tabs="stepCountData | getTabs" link="StepCount"></HomeCard>
+      </v-flex>
+      <v-flex xs5>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" title="My Heart Rate" v-bind:tabs="heartRateData | getTabs" link="HeartRate"></HomeCard>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
 import HomeCard from './HomeCard.vue'
+import moment from 'moment'
+
 
 export default {
   name: 'home',
@@ -23,12 +37,18 @@ export default {
     }
   },
   computed: {
+    device(){
+      return this.$store.state.device;
+    },
+    user(){
+      return this.$store.state.user;
+    },
     heartRateData(){
       return this.$store.state.heartRateData;
     },
     stepCountData(){
       return this.$store.state.stepCountData;
-    }
+    },
   },
   filters: {
     getTabs(data){
@@ -52,6 +72,9 @@ export default {
           currentAvg: `${data.thisMonth - data.thisYear} ${data.unit}`
         },
       ];
+    },
+    timestampToDate(date){
+      return moment.unix(date).format('MMMM Do YYYY, h:mm:ss a')
     }
   },
   components: {
@@ -65,13 +88,20 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
+}
+.welcome{
+  font-size: 3.3rem;
+  font-weight: 520;
+  margin-bottom: 10px;
+
 }
 
 h1, h2 {
   font-weight: normal;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 ul {
