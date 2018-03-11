@@ -10,9 +10,11 @@ import 'vuetify/dist/vuetify.min.css';
 import {store} from './Store'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import VModal from 'vue-js-modal'
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
+Vue.use(VModal);
 
 //globally register the icon component
 Vue.component('icon', Icon)

@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <img class="left-imgs" src="/assets/app-images/graph-icon.png">
         <v-spacer></v-spacer>
-        <img class="left-imgs" src="/assets/app-images/calendar-icon.png">
+        <img class="left-imgs" @click="showCalendarModal" src="/assets/app-images/calendar-icon.png">
         <v-tabs centered
           slot="extension"
           slider-color="cyan"
@@ -48,10 +48,15 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
+    <modal name="calendarModal" width="400" height="auto" scrollable>
+      <CalendarView @closeCalendar="closeCalendarModal"></CalendarView>
+    </modal>
   </div>
 </template>
 
 <script>
+import CalendarView from './CalendarView.vue'
+
 export default {
   name: 'homeCard',
   props: {
@@ -63,7 +68,16 @@ export default {
   data () {
     return {
       tab: null,
+      date: null,
     }
+  },
+  methods: {
+    showCalendarModal () {
+      this.$modal.show('calendarModal');
+    },
+    closeCalendarModal () {
+      this.$modal.hide('calendarModal');
+    },
   },
   filters:{
     getIntervalString(item){
@@ -88,7 +102,10 @@ export default {
         return item.currentAvg + " from this year's average."
       }
     }
-  } 
+  },
+  components: {
+    CalendarView
+  }
 }
 </script>
 
@@ -97,14 +114,15 @@ export default {
     text-align: center
   }
   .circle{
-    width: 7vh;
-    height: 7vh;
-    border-radius: 4vh;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
     border: solid 1px;
   }
   .circle-icon{
-    margin-top: 1.5vh;
-    height: 4vh;
+    margin-top: 10px;
+    height: 20px;
+    width: 20px;
   }
   .title{
     font-size: 2rem !important;
@@ -112,7 +130,7 @@ export default {
     margin: auto;
   }
   .left-imgs{
-    height: 4vh;
+    height: 20px;
   }
   .title-container{
     align-items: center
