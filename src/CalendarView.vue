@@ -1,19 +1,19 @@
 <template>
 	<div>
-	    <v-date-picker v-model="date" header-color="blue" width="400">
+	    <v-date-picker v-model="date" color="blue" width="400">
 	    </v-date-picker>
 	    <v-card>
 	      <v-layout row class="data-row">
 	        <div class="circle">
 	          <img class="circle-icon-calendar" src="/assets/app-images/step-nav.png"/> 
 	        </div>
-	        <p class="data-text"> 13500 Steps on this day </p>
+	        <p class="data-text"> {{date | getDataText(stepCountData)}} </p>
 	      </v-layout>
 	      <v-layout row class="data-row">
 	        <div class="circle">
 	          <img class="circle-icon-calendar" src="/assets/app-images/heart-nav.png"/> 
 	        </div>
-	        <p class="data-text"> 86 BPM on average </p>
+	        <p class="data-text"> {{date | getDataText(heartRateData)}} </p>
 	      </v-layout>
 	      <v-layout justify-center>
 	        <v-btn @click="closeCalendar" style="center">Close Calendar View</v-btn>
@@ -23,8 +23,27 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'CalendarView',
+  computed:{
+  	heartRateData(){
+      return this.$store.state.heartRateData;
+    },
+    stepCountData(){
+      return this.$store.state.stepCountData;
+    },
+  },
+  data(){
+  	return{
+  		date: moment().format("YYYY-MM-DD"),
+  	}
+  },
+  filters: {
+  	getDataText(date, data){
+  		return `${data.today} ${data.unit} in total on ${date}`;
+  	}
+  },
   methods: {
   	//basically this tells the parent that closeCalendar is being called from this child view
   	//the parent can then handle the closing of this modal
@@ -59,7 +78,7 @@ export default {
   }
   .data-text{
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 40px;
   }
 </style>

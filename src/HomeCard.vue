@@ -68,7 +68,6 @@ export default {
   data () {
     return {
       tab: null,
-      date: null,
     }
   },
   methods: {
