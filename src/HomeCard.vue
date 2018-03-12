@@ -1,6 +1,6 @@
 <template>
   <div id="homeCard">
-    <v-toolbar extension-height=40vh>
+    <v-toolbar extension-height=40 style="backgroundColor: #fff">
         <v-layout justify-space-around>
           <div class="circle">
             <router-link :to="link"><img class="circle-icon" v-bind:src="iconSrc"></router-link>     
@@ -29,7 +29,7 @@
           </v-tab>
         </v-tabs>
     </v-toolbar> 
-    <v-card height=35vh>
+    <v-card height=225px>
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="tab in tabs" :key="tab.title" :id="'tab-' + tab.title">
             <div class="main-value-container">
@@ -177,17 +177,17 @@ export default {
     align-items: center
   }
   .main-value-container{
-    height: 25vh;
+    height: 150px;
   }
   .divider-container{
     margin-right: 10px;
     margin-left: 10px;
-    height: 7vh;
+    height: 50px;
   }
   .main-value{
     font-size: 3.2rem !important;
     font-weight: 545; 
-    line-height: 25vh;
+    line-height: 150px;
   }
   .sub-text{
     font-size: 1.2rem !important;

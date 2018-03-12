@@ -1,32 +1,28 @@
 <template>
   <div id="stepCount">
-    <h1> {{msg}} </h1>
+    <h1> My Step Count Details </h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'profile',
-  data () {
-    return {
-      msg: 'Step Count Details Section'
-    }
-  }
+  name: 'StepCount',
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #stepCount {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 
-h1, h2 {
+h1 {
   font-weight: normal;
+  font-size: 40px;
 }
 
 ul {
