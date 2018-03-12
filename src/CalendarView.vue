@@ -16,7 +16,7 @@
 	        <p class="data-text"> {{date | getDataText(heartRateData)}} </p>
 	      </v-layout>
 	      <v-layout justify-center>
-	        <v-btn @click="closeCalendar" style="center">Close Calendar View</v-btn>
+	        <v-btn @click="closeCalendar">Close Calendar View</v-btn>
 	      </v-layout>
 	    </v-card>
 	  </div>

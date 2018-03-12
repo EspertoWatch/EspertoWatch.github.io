@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-        <img class="left-imgs" src="/assets/app-images/graph-icon.png">
+        <img class="left-imgs" @click="showChartModal" src="/assets/app-images/graph-icon.png">
         <v-spacer></v-spacer>
         <img class="left-imgs" @click="showCalendarModal" src="/assets/app-images/calendar-icon.png">
         <v-tabs centered
@@ -51,11 +51,21 @@
     <modal name="calendarModal" width="400" height="auto" scrollable>
       <CalendarView @closeCalendar="closeCalendarModal"></CalendarView>
     </modal>
+    <modal name="chartModal" width="400" height="auto" scrollable>
+      <v-card>
+        <BarChart :data="fakeChartData" :options="fakeChartOptions" class="chart"></BarChart>
+        <v-layout justify-center>
+          <v-btn @click="closeChartModal">Close Chart View</v-btn>
+        </v-layout>
+      </v-card>
+    </modal>
   </div>
 </template>
 
 <script>
 import CalendarView from './CalendarView.vue'
+import LineChart from './Charts/LineChart.vue'
+import BarChart from './Charts/BarChart.vue'
 
 export default {
   name: 'homeCard',
@@ -68,6 +78,30 @@ export default {
   data () {
     return {
       tab: null,
+      fakeChartData: {
+        labels: ['January', 'February'],
+        datasets: [
+          {
+            label: 'Fake Label',
+            backgroundColor: '#f87979',
+            data: [40, 20]
+          }
+        ]
+      },
+      fakeChartOptions: {
+        title: {
+          display: true,
+          text: 'Fake Chart Title',
+          fontSize: 20
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+      },
     }
   },
   methods: {
@@ -77,6 +111,12 @@ export default {
     closeCalendarModal () {
       this.$modal.hide('calendarModal');
     },
+    showChartModal(){
+      this.$modal.show('chartModal');
+    },
+    closeChartModal(){
+      this.$modal.hide('chartModal');
+    }
   },
   filters:{
     getIntervalString(item){
@@ -103,7 +143,9 @@ export default {
     }
   },
   components: {
-    CalendarView
+    CalendarView,
+    LineChart,
+    BarChart
   }
 }
 </script>
@@ -151,5 +193,10 @@ export default {
     font-size: 1.2rem !important;
     margin-right: 10px;
     margin-left: 10px;
+  }
+  .chart{
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 </style>
