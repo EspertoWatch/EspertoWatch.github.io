@@ -3,50 +3,25 @@
     <h1> My Heart Rate Data </h1>
     <v-layout row justify-space-around>
       <v-card width="45vw">
-        <BarChart v-if="graphType === 'Bar'" :height="175" :data="fakeChartData" :options="fakeChartOptions" class="chart"></BarChart>
-        <LineChart v-else-if="graphType ==='Line'" :height="175" :data="fakeChartData" :options="fakeChartOptions" class="chart"></LineChart>
-        <v-layout row wrap>
-          <v-flex xs4>
-            <p class="input-label">Select Graph Type: </p>
-          </v-flex>
-          <v-flex xs7>
-            <v-select
-              :items="graphTypeChoices"
-              v-model="graphType"
-            ></v-select>
-          </v-flex>
-          <v-flex xs4>
-            <p class="input-label">Select Time Period: </p>
-          </v-flex>
-          <v-flex xs7>
-            <v-select
-              :items="timePeriodChoices"
-              v-model="timePeriod"
-              @input="updateTitle"
-            ></v-select>
-          </v-flex>
-          <v-flex xs4>
-            <p class="input-label">Include: </p>
-          </v-flex>
-          <v-flex xs7>
-            <v-select
-              :items="includesChoices"
-              v-model="includes"
-              multiple
-              chips
-            ></v-select>
-          </v-flex>
-        </v-layout>
+        <ChartSelector 
+          :fake-chart-data="fakeChartData" 
+          :fake-chart-options="fakeChartOptions"
+          graph-type="Bar"
+          time-period="Today"
+          includes="Goal Line"
+          :graph-type-choices="['Bar', 'Line']"
+          :time-period-choices="['Today', 'This Week', 'This Month']"
+          :includes-choices="['Goal Line', 'Average Line']"
+        />
       </v-card>
-      <v-card width="45vw" height="400px">
+      <v-card width="45vw">
       </v-card>
     </v-layout>
   </div>
 </template>
 
 <script>
-import LineChart from './Charts/LineChart.vue'
-import BarChart from './Charts/BarChart.vue'
+import ChartSelector from './Chartselector.vue'
 export default {
   name: 'HeartRate',
   data() {
@@ -75,24 +50,11 @@ export default {
             }]
         }
       },
-      graphType: 'Bar',
-      timePeriod: 'Today',
-      includes: null,
-      graphTypeChoices: ['Bar', 'Line'],
-      timePeriodChoices: ['Today', 'This Week', 'This Month'],
-      includesChoices: ['Goal Line', 'Average Line'],
     }
   },
   components: {
-    LineChart,
-    BarChart
+    ChartSelector
   },
-  methods: {
-    updateTitle(){
-      this.fakeChartOptions.title.text = `${this.timePeriod}'s Graph`;
-      debugger;
-    }
-  }
 }
 </script>
 

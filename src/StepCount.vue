@@ -3,6 +3,18 @@
     <h1> My Step Count Details </h1>
     <v-layout row justify-space-around>
       <v-card width="45vw">
+        <ChartSelector 
+          :fake-chart-data="fakeChartData" 
+          :fake-chart-options="fakeChartOptions"
+          graph-type="Bar"
+          time-period="Today"
+          includes="Goal Line"
+          :graph-type-choices="['Bar', 'Line']"
+          :time-period-choices="['Today', 'This Week', 'This Month']"
+          :includes-choices="['Goal Line', 'Average Line']"
+        />
+      </v-card>
+      <v-card width="45vw">
         <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
       </v-card>
     </v-layout>
@@ -11,14 +23,40 @@
 
 <script>
 import StepArchMeter from './StepArchMeter.vue'
+import ChartSelector from './Chartselector.vue'
 export default {
   name: 'StepCount',
   components: {
-    StepArchMeter
+    StepArchMeter,
+    ChartSelector
   },
   data(){
     return{
-      stepGoalProgress: 79
+      fakeChartData: {
+        labels: ['January', 'February'],
+        datasets: [
+          {
+            label: 'Fake Label',
+            backgroundColor: '#f87979',
+            data: [40, 20]
+          }
+        ]
+      },
+      fakeChartOptions: {
+        title: {
+          display: true,
+          text: 'Fake Chart Title',
+          fontSize: 20
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+      },
+      stepGoalProgress: 65
     }
   },
   filters:{
