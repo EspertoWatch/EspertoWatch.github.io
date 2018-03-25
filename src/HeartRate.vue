@@ -15,6 +15,18 @@
         />
       </v-card>
       <v-card width="45vw">
+         <vue-circle
+          :progress="50"
+          :size="300"
+          :reverse=false
+          line-cap="round"
+          :animation=false
+          :fill="{gradient: ['red', 'yellow', 'green', 'yellow', 'red']}"
+          empty-fill="rgba(0, 0, 0, 0)"
+          insert-mode="append"
+          :thickness="15"
+          :show-percent=false>
+        </vue-circle>
       </v-card>
     </v-layout>
   </div>
@@ -22,6 +34,7 @@
 
 <script>
 import ChartSelector from './Chartselector.vue'
+import VueCircle from 'vue2-circle-progress'
 export default {
   name: 'HeartRate',
   data() {
@@ -53,7 +66,8 @@ export default {
     }
   },
   components: {
-    ChartSelector
+    ChartSelector,
+    VueCircle
   },
 }
 </script>
