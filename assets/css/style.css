@@ -1134,7 +1134,6 @@ xkeyframes
 /* Sponsors Section */
 .sponsor-img{
     max-width: 75%;
-    margin-bottom: 25px;
     opacity: 0.5;
 }
 .sponsor-img:hover{
@@ -1148,9 +1147,16 @@ xkeyframes
 .sponsor-text p{
     font-size: 1.2rem !important;
 }
+.sponsor-text{
+    padding-top: 20px;
+    padding-bottom: 20px; 
+}
 @media (min-width: 990px){
     .sponsor-images-row{
         border-right: 0.5px solid;
+    }
+    .sponsor-text{
+        padding-top: 110px;
     }
 }
 /* Contact Section */
