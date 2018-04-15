@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 
 Vue.use(Vuex);
 
@@ -52,5 +53,53 @@ export const store = new Vuex.Store({
 			weight: {value: 150, unit: "lbs"}
 		},
 		userGoalsData: {}
+	},
+	mutations: {
+		CHANGE_USER_NAME(state, newName){
+			state.user.name = newName;
+		},
+		CHANGE_USER_BIRTHDATE(state, newDate){
+			debugger;
+			const dateTimeStamp = moment(newDate, 'YYYY-MM-DD').unix();
+			state.user.birthDate = dateTimeStamp;
+		},
+		CHANGE_USER_HEIGHT(state, payload){
+			state.user.height.value = payload.value;
+			state.user.height.unit = payload.unit;
+		},
+		CHANGE_USER_WEIGHT(state, payload){
+			state.user.weight.value = payload.value;
+			state.user.weight.unit = payload.unit;
+		},
+		CHANGE_USER_HANDEDNESS(state, newHandedness){
+			state.user.handedness = newHandedness;
+		},
+		CHANGE_USER_GENDER(state, newGender){
+			state.user.gender = newGender;
+		}
+	},
+	actions: {
+  		changeUserName (context, newName) {
+  			//api call goes here
+    		context.commit('CHANGE_USER_NAME', newName);
+  		},
+  		changeUserBirthdate(context, newDate){
+  			//api call goes here
+  			context.commit('CHANGE_USER_BIRTHDATE', newDate);
+  		},
+  		changeUserHeight(context, payload){
+  			//api call goes here
+  			context.commit('CHANGE_USER_HEIGHT', payload);
+  		},
+  		changeUserWeight(context, payload){
+  			//api call goes here
+  			context.commit('CHANGE_USER_WEIGHT', payload);
+  		},
+  		changeUserHandedness(context, newHandedness){
+  			context.commit('CHANGE_USER_HANDEDNESS', newHandedness);
+  		},
+  		changeUserGender(context, newGender){
+  			context.commit('CHANGE_USER_GENDER', newGender);
+  		}
 	}
 })

@@ -7,7 +7,7 @@
         <v-flex xs7>
           <p v-if="!isEditing" class="text-field-value">{{getDisplayValue}}</p>
           <template v-else-if="type === 'dateSelector'">
-              <v-date-picker :full-width="true" v-model="date" color="blue" reactive="true"/>
+              <v-date-picker :full-width="true" v-model="value" color="blue"/>
           </template>
           <template v-else>
             <v-text-field v-model="value"/>
@@ -33,15 +33,24 @@ export default {
   props: {
     iconName: String,
     label: String,
-    value: String,
+    value: [String, Number],
     type: String,
     options: Array,
     unit: String,
-    date: String
+    submitFunction: Function
   },
   methods: {
     onPressIcon: function(){
       if(this.type !== "info"){
+        if(this.isEditing){
+          if(this.type === "unitField"){
+            const payload = {value: parseInt(this.value, 10), unit: this.unit}
+            this.submitFunction(payload);
+          }
+          else{
+             this.submitFunction(this.value);
+          }
+        }
         this.isEditing = !this.isEditing;
       }
     }
@@ -52,7 +61,7 @@ export default {
         return this.value.toString() + this.unit;
       }
       else if(this.type ==="dateSelector"){
-        return moment(this.date, 'YYYY-MM-DD').format('MMM Do YYYY');
+        return moment(this.value, 'YYYY-MM-DD').format('MMM Do YYYY');
       }
       else{
         return this.value;

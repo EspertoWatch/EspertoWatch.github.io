@@ -7,26 +7,26 @@
     </v-layout>
     <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <EditField label="Name" :value="user.name" iconName="edit"/>
+                <EditField label="Name" :value="user.name" iconName="edit" :submitFunction="changeUserName"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Birth Date" :date="user.birthDate | timestampToBirthDate" type="dateSelector" iconName="edit"/>
-            </v-flex>
-      </v-layout>
-      <v-layout row justify-space-around style="margin-bottom: 10px">
-            <v-flex xs5>
-                <EditField label="Height" :value="user.height.value" :unit="user.height.unit" :options="['cm', 'inches']" iconName="edit" type="unitField"/>
-            </v-flex>
-            <v-flex xs5>
-                <EditField label="Weight" :value="user.weight.value" :unit="user.weight.unit" :options="['lbs', 'kg']" type="unitField" iconName="edit"/>
+                <EditField label="Birth Date" :value="user.birthDate | timestampToBirthDate" type="dateSelector" iconName="edit" :submitFunction="changeUserBirthdate"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <EditField label="Handedness" :value="user.handedness" iconName="edit"/>
+                <EditField label="Height" :value="user.height.value" :unit="user.height.unit" :options="['cm', 'inches']" iconName="edit" type="unitField" :submitFunction="changeUserHeight"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Gender" :value="user.gender" iconName="edit"/>
+                <EditField label="Weight" :value="user.weight.value" :unit="user.weight.unit" :options="['lbs', 'kg']" type="unitField" iconName="edit" :submitFunction="changeUserWeight"/>
+            </v-flex>
+      </v-layout>
+      <v-layout row justify-space-around style="margin-bottom: 10px">
+            <v-flex xs5>
+                <EditField label="Handedness" :value="user.handedness" iconName="edit" :submitFunction="changeUserHandedness"/>
+            </v-flex>
+            <v-flex xs5>
+                <EditField label="Gender" :value="user.gender" iconName="edit" :submitFunction="changeUserGender"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
@@ -48,6 +48,7 @@
 <script>
 import moment from 'moment'
 import EditField from './EditField.vue'
+import { mapActions } from 'vuex'
 export default {
   name: 'profile',
   data () {
@@ -73,6 +74,16 @@ export default {
     timestampToSyncDate(date){
       return moment.unix(date).fromNow();
     }
+  },
+  methods: {
+    ...mapActions([
+        'changeUserName',
+        'changeUserBirthdate',
+        'changeUserHeight',
+        'changeUserWeight',
+        'changeUserHandedness',
+        'changeUserGender',
+      ]),
   },
   components: {
     EditField
