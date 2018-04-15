@@ -41,9 +41,15 @@ export const store = new Vuex.Store({
 				sensors: ["Accelerometer", "PPG (Heart Rate)", "Gyroscope", "Sp02 (temperature)"],
 				processor: "nRF52",
 			},
+			image: "",
 		},
 		user: {
-			name: "Austin Atmaja"
+			name: "Austin Atmaja",
+			birthDate: 914284800,
+			gender: "Male",
+			handedness: "Right",
+			height: {value: 175, unit: "cm"},
+			weight: {value: 150, unit: "lbs"}
 		},
 		userGoalsData: {}
 	}

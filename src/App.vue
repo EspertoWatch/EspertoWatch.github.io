@@ -1,9 +1,9 @@
 <template>
-  <v-app style="backgroundColor: #f9f8f8">
+  <v-app style="backgroundColor: #fdfbfb">
     <div>
      <v-toolbar flat style=" backgroundColor: #fff; border-bottom: solid 1px; border-color: #d3d3d3">
       <v-toolbar-title><router-link to="/"><img src="/assets/app-images/espertoLogo.png" class="esperto-logo"></router-link></v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer/>
       <div class="nav-logos">
         <router-link to="Profile"><img src="/assets/app-images/profile-nav.png"></router-link>
         <router-link to="StepCount"><img src="/assets/app-images/step-nav.png"></router-link>

@@ -85,7 +85,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 30px;
 }
 .welcome{
   font-size: 3.3rem;
@@ -98,13 +97,6 @@ export default {
   margin-bottom: 10px;
   color: #696969;
 }
-
-h1, h2 {
-  font-weight: normal;
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
-
 ul {
   list-style-type: none;
   padding: 0;
