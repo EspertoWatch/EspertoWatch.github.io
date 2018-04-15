@@ -10,7 +10,7 @@
                 <EditField label="Name" :value="user.name" iconName="edit"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Birth Date" :value="user.birthDate | timestampToBirthDate" iconName="edit"/>
+                <EditField label="Birth Date" :date="user.birthDate | timestampToBirthDate" type="dateSelector" iconName="edit"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
@@ -64,8 +64,11 @@ export default {
     },
   },
   filters: {
-    timestampToBirthDate(date){
+    timestampToReadableBirthDate(date){
       return moment.unix(date).format('MMM Do YYYY')
+    },
+    timestampToBirthDate(date){
+      return moment.unix(date).format('YYYY-MM-DD');
     },
     timestampToSyncDate(date){
       return moment.unix(date).fromNow();
