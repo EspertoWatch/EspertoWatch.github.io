@@ -7,114 +7,34 @@
     </v-layout>
     <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Name</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.name}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Name" :value="user.name" iconName="edit"/>
             </v-flex>
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Birth Date</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.birthDate | timestampToBirthDate}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Birth Date" :value="user.birthDate | timestampToBirthDate" iconName="edit"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Height</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.height.value}} {{user.height.unit}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Height" :value="`${user.height.value} ${user.height.unit}`" iconName="edit"/>
             </v-flex>
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Weight</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.weight.value}} {{user.weight.unit}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Weight" :value="`${user.weight.value} ${user.weight.unit}`" iconName="edit"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Handedness</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.handedness}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Handedness" :value="user.handedness" iconName="edit"/>
             </v-flex>
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Gender</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{user.gender}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="edit" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Gender" :value="user.gender" iconName="edit"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                      <v-flex xs3>
-                          <p class="text-field-label">My Device</p>
-                      </v-flex>
-                      <v-flex xs5>
-                          <p class="text-field-value">{{device.name}} {{device.version}}</p>
-                      </v-flex>
-                      <icon class="icon-style" name="info-circle" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="My Device" :value="`${device.name} ${device.version}`" iconName="info-circle"/>
             </v-flex>
             <v-flex xs5>
-                <v-card>
-                    <v-layout row justify-space-between>
-                        <v-flex xs3>
-                            <p class="text-field-label">Last Synced</p>
-                        </v-flex>
-                        <v-flex xs5>
-                            <p class="text-field-value">{{device.lastSynced | timestampToSyncDate}}</p>
-                        </v-flex>
-                        <icon class="icon-style" name="info-circle" scale="2"></icon>
-                    </v-layout>
-                </v-card>
+                <EditField label="Last Synced" :value="device.lastSynced | timestampToSyncDate" iconName="info-circle"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-center>
@@ -127,6 +47,7 @@
 
 <script>
 import moment from 'moment'
+import EditField from './EditField.vue'
 export default {
   name: 'profile',
   data () {
@@ -150,6 +71,9 @@ export default {
       return moment.unix(date).fromNow();
     }
   },
+  components: {
+    EditField
+  }
 }
 </script>
 
