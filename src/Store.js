@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
 			unit: "Steps"
 		},
 		device: {
-			name: "EspertoWatch",
+			name: "Esperto Watch",
 			version: "1.0",
 			lastSynced: 1520673603,
 			specs: {

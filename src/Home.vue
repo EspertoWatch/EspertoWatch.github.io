@@ -1,17 +1,13 @@
 <template>
   <div id="home">
-    <v-layout row justify-space-around>
-      <v-flex xs11>
+    <v-layout row justify-center>
         <p class="welcome"> Welcome {{user.name}}! </p>
-        <v-layout row>
-          <h1 style="margin-right: 10px"> Last Synced: {{device.lastSynced | timestampToDate}} </h1>
-          <icon name="info-circle" scale="2"></icon>
-        </v-layout>
-        <v-layout row>
-          <h1 style="margin-right: 10px"> My Connected Device: {{device.name}} {{device.version}} </h1>
-          <icon name="info-circle" scale="2"></icon>
-        </v-layout>
+    </v-layout>
+    <v-layout row justify-space-around>
+      <v-flex xs8>
+          <p class="sync-text" style="margin-right: 10px"> Last synced my {{device.name}}: {{device.lastSynced | timestampToDate}}</p>
       </v-flex>
+      <v-flex xs2/>
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
@@ -95,7 +91,12 @@ export default {
   font-size: 3.3rem;
   font-weight: 520;
   margin-bottom: 10px;
-
+}
+.sync-text{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #696969;
 }
 
 h1, h2 {
