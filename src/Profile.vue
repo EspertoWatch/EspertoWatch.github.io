@@ -15,10 +15,10 @@
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <EditField label="Height" :value="`${user.height.value} ${user.height.unit}`" iconName="edit"/>
+                <EditField label="Height" :value="user.height.value" :unit="user.height.unit" :options="['cm', 'inches']" iconName="edit" type="unitField"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Weight" :value="`${user.weight.value} ${user.weight.unit}`" iconName="edit"/>
+                <EditField label="Weight" :value="user.weight.value" :unit="user.weight.unit" :options="['lbs', 'kg']" type="unitField" iconName="edit"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
@@ -31,10 +31,10 @@
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <EditField label="My Device" :value="`${device.name} ${device.version}`" iconName="info-circle"/>
+                <EditField label="My Device" :value="`${device.name} ${device.version}`" type="info" iconName="info-circle"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Last Synced" :value="device.lastSynced | timestampToSyncDate" iconName="info-circle"/>
+                <EditField label="Last Synced" :value="device.lastSynced | timestampToSyncDate" type="info" iconName="info-circle"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-center>
