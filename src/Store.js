@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
+import axios from 'axios';
+import { API } from 'aws-amplify';
+import Amplify from 'aws-amplify';
+import awsmobile from './aws-exports';
+
+Amplify.configure(awsmobile);
 
 Vue.use(Vuex);
+"use strict";
 
 //basically stores the state of the whole application
 //currently you just see the initial state but that will change
@@ -12,6 +19,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		heartRateData: {
+            current: '',
+            dailyHR: [],
+            //below this line is fake data (not coming from api)
 			today: 80,
 			yesterday: 78,
 			thisWeek: 81,
@@ -22,6 +32,9 @@ export const store = new Vuex.Store({
 			unit: "BPM"
 		},
 		stepCountData: {
+			current: '',
+			dailySteps: [],
+			//below this line is fake data (not coming from api)
 			today: 9000,
 			yesterday: 9500,
 			thisWeek: 8500,
@@ -59,7 +72,6 @@ export const store = new Vuex.Store({
 			state.user.name = newName;
 		},
 		CHANGE_USER_BIRTHDATE(state, newDate){
-			debugger;
 			const dateTimeStamp = moment(newDate, 'YYYY-MM-DD').unix();
 			state.user.birthDate = dateTimeStamp;
 		},
@@ -76,7 +88,20 @@ export const store = new Vuex.Store({
 		},
 		CHANGE_USER_GENDER(state, newGender){
 			state.user.gender = newGender;
-		}
+		},
+		GET_HEART_RATE(state, heartRate){
+			state.user.apiHeartRate = heartRate;
+		},
+        GET_STEP_COUNT(state, stepCount){
+			console.log(stepCount);
+            state.stepCountData.current = stepCount.currentSteps;
+            state.stepCountData.dailySteps = stepCount.dailySteps.values;
+        },
+        GET_HEART_RATE(state, heartRate){
+            console.log(heartRate);
+            state.heartRateData.current = heartRate.currentHR;
+            state.heartRateData.dailyHR = heartRate.dailyHR.values;
+        }
 	},
 	actions: {
   		changeUserName (context, newName) {
@@ -100,6 +125,16 @@ export const store = new Vuex.Store({
   		},
   		changeUserGender(context, newGender){
   			context.commit('CHANGE_USER_GENDER', newGender);
-  		}
+  		},
+  		async getStepCountData(context){
+  			//todo add username as a param to the request instead of hardcoding mmacmahon
+            const stepCount = await API.get('StepCountCRUD', '/StepCount/mmacmahon');
+			context.commit('GET_STEP_COUNT', stepCount[0]);
+		},
+        async getHeartRateData(context){
+            //todo add username as a param to the request instead of hardcoding mmacmahon
+            const heartRate = await API.get('HeartRateCRUD', '/HeartRate/mmacmahon');
+            context.commit('GET_HEART_RATE', heartRate[0]);
+        }
 	}
 })

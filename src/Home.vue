@@ -23,7 +23,7 @@
 <script>
 import HomeCard from './HomeCard.vue'
 import moment from 'moment'
-
+import { mapActions } from 'vuex'
 
 export default {
   name: 'home',
@@ -72,6 +72,16 @@ export default {
     timestampToDate(date){
       return moment.unix(date).format('MMMM Do YYYY, h:mm:ss a')
     }
+  },
+  methods: {
+      ...mapActions([
+          'getStepCountData',
+          'getHeartRateData',
+      ]),
+  },
+  mounted: function () {
+      this.getStepCountData();
+      this.getHeartRateData();
   },
   components: {
     HomeCard

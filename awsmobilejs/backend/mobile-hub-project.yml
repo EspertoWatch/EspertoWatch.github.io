@@ -1,0 +1,114 @@
+--- !com.amazonaws.mobilehub.v0.Project 
+apps:
+  android: !com.amazonaws.mobilehub.v0.AppDO {}
+  web: !com.amazonaws.mobilehub.v0.AppDO {}
+features:
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+    components:
+      HeartRateCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: HeartRateCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /HeartRate: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/HeartRate-20180421124203.zip
+            description: 'Handler for calls to resource path : /HeartRate/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: cv0SDbLVmjOGZlc6LuCNGB7uV68pS7W0eGVzixo5vwE=
+            memorySize: '128'
+            modified: '2018-04-21T16:42:56.237+0000'
+            name: HeartRate
+            runtime: nodejs6.10
+            timeout: '3'
+            version: drIbtOsPv8VmDBAT3fvulv2tVqAGaLv8
+          '/HeartRate/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/HeartRate-20180421124203.zip
+            description: 'Handler for calls to resource path : /HeartRate/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: cv0SDbLVmjOGZlc6LuCNGB7uV68pS7W0eGVzixo5vwE=
+            memorySize: '128'
+            modified: '2018-04-21T16:42:56.237+0000'
+            name: HeartRate
+            runtime: nodejs6.10
+            timeout: '3'
+            version: qUWg80ARgYxYZJW84emvV2JWSnKBC1LR
+      StepCountCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: StepCountCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /StepCount: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/StepCount-20180421120923.zip
+            description: 'Handler for calls to resource path : /StepCount/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: ot/EsbYEqk4mm7RMP2csZ3g6H4KSWocne0Y9W22hbGk=
+            memorySize: '128'
+            modified: '2018-04-21T16:10:33.649+0000'
+            name: StepCount
+            runtime: nodejs6.10
+            timeout: '3'
+            version: nCZrLD9IjRfBoas4TmMziCbCLNXOdunS
+          '/StepCount/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/StepCount-20180421120923.zip
+            description: 'Handler for calls to resource path : /StepCount/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: ot/EsbYEqk4mm7RMP2csZ3g6H4KSWocne0Y9W22hbGk=
+            memorySize: '128'
+            modified: '2018-04-21T16:10:33.649+0000'
+            name: StepCount
+            runtime: nodejs6.10
+            timeout: '3'
+            version: rXKdKRN6EtlnUJ2jlUz3dLdyTWF_xUEX
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+    attributes:
+      enabled: true
+      visibility: public-global
+    components:
+      release: !com.amazonaws.mobilehub.v0.Bucket {}
+  database: !com.amazonaws.mobilehub.v0.Database 
+    components:
+      database-nosql: !com.amazonaws.mobilehub.v0.NoSQLDatabase 
+        tables:
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              username: S
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-Accounts
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              username: S
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-StepCount
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              username: S
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-HeartRate
+            tablePrivacy: public
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+    components:
+      analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
+name: EspertoWatch
+region: us-east-1
