@@ -1,6 +1,6 @@
 <template>
   <v-app style="backgroundColor: #fdfbfb">
-    <div>
+    <div v-if="user.isLoggedIn">
      <v-toolbar flat style=" backgroundColor: #fff; border-bottom: solid 1px; border-color: #d3d3d3">
       <v-toolbar-title><router-link to="/"><img src="/assets/app-images/espertoLogo.png" class="esperto-logo"></router-link></v-toolbar-title>
       <v-spacer/>
@@ -16,16 +16,28 @@
         </v-container>
       </v-content>
     </div>
+    <div v-else>
+      <Login></Login>
+    </div>
   </v-app>
 </template>
 
 <script>
+import Login from './Login.vue';
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  computed: {
+    user(){
+        return this.$store.state.user;
+    },
+  },
+  components: {
+    Login
   }
 }
 </script>

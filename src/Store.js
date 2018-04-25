@@ -63,7 +63,8 @@ export const store = new Vuex.Store({
 			gender: "Male",
 			handedness: "Right",
 			height: {value: 175, unit: "cm"},
-			weight: {value: 150, unit: "lbs"}
+			weight: {value: 150, unit: "lbs"},
+			isLoggedIn: false
 		},
 		userGoalsData: {}
 	},
