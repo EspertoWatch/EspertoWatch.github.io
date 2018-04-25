@@ -8,7 +8,7 @@
 const awsmobile = {
     'aws_app_analytics': 'enable',
     'aws_cloud_logic': 'enable',
-    'aws_cloud_logic_custom': [{"id":"a8zpazis25","name":"HeartRateCRUD","description":"","endpoint":"https://a8zpazis25.execute-api.us-east-1.amazonaws.com/Development","region":"us-east-1","paths":["/HeartRate","/HeartRate/123"]},{"id":"5gngw8e234","name":"StepCountCRUD","description":"","endpoint":"https://5gngw8e234.execute-api.us-east-1.amazonaws.com/Development","region":"us-east-1","paths":["/StepCount","/StepCount/123"]}],
+    'aws_cloud_logic_custom': [{"id":"6mrfedhk65","name":"AccountsCRUD","description":"","endpoint":"https://6mrfedhk65.execute-api.us-east-1.amazonaws.com/Development","region":"us-east-1","paths":["/Accounts","/Accounts/123"]},{"id":"a8zpazis25","name":"HeartRateCRUD","description":"","endpoint":"https://a8zpazis25.execute-api.us-east-1.amazonaws.com/Development","region":"us-east-1","paths":["/HeartRate","/HeartRate/123"]},{"id":"5gngw8e234","name":"StepCountCRUD","description":"","endpoint":"https://5gngw8e234.execute-api.us-east-1.amazonaws.com/Development","region":"us-east-1","paths":["/StepCount","/StepCount/123"]}],
     'aws_cognito_identity_pool_id': 'us-east-1:abbdd26c-4457-4a80-ad7c-13a720eae43c',
     'aws_cognito_region': 'us-east-1',
     'aws_content_delivery': 'enable',

@@ -5,6 +5,38 @@ apps:
 features:
   cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
     components:
+      AccountsCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: AccountsCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /Accounts: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/Accounts-20180425085248.zip
+            description: 'Handler for calls to resource path : /Accounts/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: n2F0rLkU2h6to+GeF/L5p/Y7vlfcsuSKrrHVV/W5J80=
+            memorySize: '128'
+            modified: '2018-04-25T12:53:18.929+0000'
+            name: Accounts
+            runtime: nodejs6.10
+            timeout: '3'
+            version: vAjaC3maFuny_7CnUR1nMbi8pLmm03aM
+          '/Accounts/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/Accounts-20180425085248.zip
+            description: 'Handler for calls to resource path : /Accounts/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: n2F0rLkU2h6to+GeF/L5p/Y7vlfcsuSKrrHVV/W5J80=
+            memorySize: '128'
+            modified: '2018-04-25T12:53:18.929+0000'
+            name: Accounts
+            runtime: nodejs6.10
+            timeout: '3'
+            version: bdkRsVqG4oQcYg_0veYul2TZwII1gb9s
       HeartRateCRUD: !com.amazonaws.mobilehub.v0.API 
         attributes:
           name: HeartRateCRUD
