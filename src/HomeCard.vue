@@ -3,7 +3,7 @@
     <v-toolbar extension-height=40 style="backgroundColor: #fff">
         <v-layout justify-space-around>
           <div class="circle">
-            <router-link :to="link"><img class="circle-icon" v-bind:src="iconSrc"></router-link>     
+            <router-link :to="link"><img class="circle-icon" v-bind:src="iconSrc"></router-link>
           </div>
         </v-layout>
         <v-spacer></v-spacer>
@@ -28,7 +28,7 @@
             {{tab.title}}
           </v-tab>
         </v-tabs>
-    </v-toolbar> 
+    </v-toolbar>
     <v-card height=225px>
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="tab in tabs" :key="tab.title" :id="'tab-' + tab.title">
@@ -53,7 +53,7 @@
     </modal>
     <modal name="chartModal" width="400" height="auto" scrollable>
       <v-card>
-        <BarChart :data="fakeChartData" :options="fakeChartOptions" class="chart"></BarChart>
+        <BarChart :data="chartMetaData" :options="chartOptions" class="chart"></BarChart>
         <v-layout justify-center>
           <v-btn @click="closeChartModal">Close Chart View</v-btn>
         </v-layout>
@@ -73,35 +73,42 @@ export default {
     iconSrc: String,
     title: String,
     tabs: Array,
-    link: String
+    link: String,
+    chartData: Array,
+  },
+  computed: {
+      chartMetaData(){
+          return {
+              labels: [1, 2, 3, 4, 5, 6, 7],
+              datasets: [
+                  {
+                      label: this.title,
+                      backgroundColor: '#f87979',
+                      data: this.chartData
+                  }
+              ]
+          }
+      },
+      chartOptions(){
+          return{
+              title: {
+                  display: true,
+                  text: `${this.title} Over 7 Days`,
+                  fontSize: 20
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      }
   },
   data () {
     return {
       tab: null,
-      fakeChartData: {
-        labels: ['January', 'February'],
-        datasets: [
-          {
-            label: 'Fake Label',
-            backgroundColor: '#f87979',
-            data: [40, 20]
-          }
-        ]
-      },
-      fakeChartOptions: {
-        title: {
-          display: true,
-          text: 'Fake Chart Title',
-          fontSize: 20
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-      },
     }
   },
   methods: {
@@ -167,7 +174,7 @@ export default {
   }
   .title{
     font-size: 2rem !important;
-    font-weight: 525; 
+    font-weight: 525;
     margin: auto;
   }
   .left-imgs{
@@ -186,7 +193,7 @@ export default {
   }
   .main-value{
     font-size: 3.2rem !important;
-    font-weight: 545; 
+    font-weight: 545;
     line-height: 150px;
   }
   .sub-text{

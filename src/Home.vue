@@ -11,10 +11,10 @@
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/step-nav.png" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="dailyHR" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
       </v-flex>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/heart-nav.png" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="dailySteps" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
       </v-flex>
     </v-layout>
   </div>
@@ -38,6 +38,12 @@ export default {
     },
     user(){
       return this.$store.state.user;
+    },
+    dailyHR(){
+        return this.$store.state.heartRateData.dailyHR.slice(0, 7);
+    },
+    dailySteps(){
+        return this.$store.state.stepCountData.dailySteps.slice(0, 7);
     },
     ...mapGetters([
         'getHomeCardStepData',
