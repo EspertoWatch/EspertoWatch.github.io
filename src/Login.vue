@@ -45,7 +45,7 @@
                     <v-layout row justify-center>
                         <v-flex xs9>
                             <v-text-field
-                                    v-model="signUpInfo.passwordConfirm"
+                                    v-model="passwordConfirm"
                                     label="Confirm Password"
                                     :append-icon="visible2 ? 'visibility' : 'visibility_off'"
                                     :append-icon-cb="() => (visible2 = !visible2)"
@@ -56,7 +56,7 @@
                 </v-container>
                 <v-layout row justify-center>
                     <v-flex xs9>
-                        <v-btn round block color="primary" dark>Submit</v-btn>
+                        <v-btn @click="clickSignUp" round block color="primary" dark>Submit</v-btn>
                     </v-flex>
                 </v-layout>
             </div>
@@ -84,7 +84,7 @@
                 </v-container>
                 <v-layout row justify-center>
                     <v-flex xs9>
-                        <v-btn @click="login" round block color="primary" dark>Login</v-btn>
+                        <v-btn @click="clickLogin" round block color="primary" dark>Login</v-btn>
                     </v-flex>
                 </v-layout>
                 <v-layout row justify-center>
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     export default {
         name: "login",
         data () {
@@ -116,14 +117,25 @@
                     lastName: '',
                     username: '',
                     password: '',
-                    passwordConfirm: ''
-                }
+                },
+                passwordConfirm: ''
             }
         },
         methods: {
             triggerSignUpMode(){
                 this.isSigningUp = true;
                 this.cardHeight = '600px';
+            },
+            ...mapActions([
+                'login',
+                'signUp'
+            ]),
+            clickLogin(){
+                this.login(this.loginInfo);
+            },
+            clickSignUp(){
+                //todo: add validation logic
+                this.signUp(this.signUpInfo);
             }
         },
     }

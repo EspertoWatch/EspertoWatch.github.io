@@ -102,7 +102,12 @@ export const store = new Vuex.Store({
             console.log(heartRate);
             state.heartRateData.current = heartRate.currentHR;
             state.heartRateData.dailyHR = heartRate.dailyHR.values;
-        }
+        },
+		LOGIN_SUCCESS(state, accountInfo){
+			state.user.username = accountInfo.username;
+			state.user.name = `${accountInfo.firstName} ${accountInfo.lastName}`;
+			state.user.isLoggedIn = true;
+		}
 	},
 	actions: {
   		changeUserName (context, newName) {
@@ -136,6 +141,18 @@ export const store = new Vuex.Store({
             //todo add username as a param to the request instead of hardcoding mmacmahon
             const heartRate = await API.get('HeartRateCRUD', '/HeartRate/mmacmahon');
             context.commit('GET_HEART_RATE', heartRate[0]);
-        }
+        },
+		async login(context, loginAttempt){
+  			//todo: once server changes are made to make login more secure, need to update this action
+			const accountInfo = await API.get('AccountsCRUD', `/Accounts/${loginAttempt.username}`);
+			if( (accountInfo.length > 0) && (accountInfo[0].password === loginAttempt.password) ){
+				context.commit('LOGIN_SUCCESS', accountInfo[0]);
+			}
+		},
+		async signUp(context, signUpData){
+            //todo: once server changes are made to make signup more secure, need to update this action
+            await API.post('AccountsCRUD', '/Accounts', signUpData);
+            context.commit('LOGIN_SUCCESS', signUpData);
+		}
 	}
 })
