@@ -34,14 +34,6 @@ export const store = new Vuex.Store({
 		stepCountData: {
 			current: '',
 			dailySteps: [],
-			//below this line is fake data (not coming from api)
-			today: 9000,
-			yesterday: 9500,
-			thisWeek: 8500,
-			lastWeek: 10000,
-			thisMonth: 9000,
-			lastMonth: 8750,
-			thisYear: 9500,
 			unit: "Steps"
 		},
 		device: {
@@ -58,7 +50,6 @@ export const store = new Vuex.Store({
 			image: "",
 		},
 		user: {
-			name: "Austin Atmaja",
 			birthDate: 914284800,
 			gender: "Male",
 			handedness: "Right",
@@ -67,6 +58,38 @@ export const store = new Vuex.Store({
 			isLoggedIn: false
 		},
 		userGoalsData: {}
+	},
+	getters: {
+		getHomeCardStepData: state => {
+			//todo: fix sketchy logic once we better define step count db schema
+			const today = state.stepCountData.current;
+			const yesterday = state.stepCountData.dailySteps[1];
+			const weekStepsArray = state.stepCountData.dailySteps.slice(0, 7);
+			const thisWeek = Math.round(weekStepsArray.reduce((a,b) => a + b, 0) / weekStepsArray.length, 0);
+			const lastWeekStepsArray = state.stepCountData.dailySteps.slice(7, 14);
+			const lastWeek = Math.round(lastWeekStepsArray.reduce((a,b) => a + b, 0) / lastWeekStepsArray.length, 0);
+
+			const thisMonthStepsArray = state.stepCountData.dailySteps.slice(0, 30);
+			const thisMonth = Math.round(thisMonthStepsArray.reduce((a,b) => a + b, 0) / thisMonthStepsArray.length, 0);
+			const lastMonthStepsArray = state.stepCountData.dailySteps.slice(30, 60);
+            const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
+			return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.stepCountData.unit};
+		},
+        getHomeCardHeartRateData: state => {
+            //todo: fix sketchy logic once we better define heart rate db schema
+            const today = state.heartRateData.current;
+            const yesterday = state.heartRateData.dailyHR[1];
+            const weekStepsArray = state.heartRateData.dailyHR.slice(0, 7);
+            const thisWeek = Math.round(weekStepsArray.reduce((a,b) => a + b, 0) / weekStepsArray.length, 0);
+            const lastWeekStepsArray = state.heartRateData.dailyHR.slice(7, 14);
+            const lastWeek = Math.round(lastWeekStepsArray.reduce((a,b) => a + b, 0) / lastWeekStepsArray.length, 0);
+
+            const thisMonthStepsArray = state.heartRateData.dailyHR.slice(0, 30);
+            const thisMonth = Math.round(thisMonthStepsArray.reduce((a,b) => a + b, 0) / thisMonthStepsArray.length, 0);
+            const lastMonthStepsArray = state.heartRateData.dailyHR.slice(30, 60);
+            const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
+            return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
+        }
 	},
 	mutations: {
 		CHANGE_USER_NAME(state, newName){
@@ -94,12 +117,10 @@ export const store = new Vuex.Store({
 			state.user.apiHeartRate = heartRate;
 		},
         GET_STEP_COUNT(state, stepCount){
-			console.log(stepCount);
             state.stepCountData.current = stepCount.currentSteps;
             state.stepCountData.dailySteps = stepCount.dailySteps.values;
         },
         GET_HEART_RATE(state, heartRate){
-            console.log(heartRate);
             state.heartRateData.current = heartRate.currentHR;
             state.heartRateData.dailyHR = heartRate.dailyHR.values;
         },
@@ -133,13 +154,11 @@ export const store = new Vuex.Store({
   			context.commit('CHANGE_USER_GENDER', newGender);
   		},
   		async getStepCountData(context){
-  			//todo add username as a param to the request instead of hardcoding mmacmahon
-            const stepCount = await API.get('StepCountCRUD', '/StepCount/mmacmahon');
+            const stepCount = await API.get('StepCountCRUD', `/StepCount/${context.state.user.username}`);
 			context.commit('GET_STEP_COUNT', stepCount[0]);
 		},
         async getHeartRateData(context){
-            //todo add username as a param to the request instead of hardcoding mmacmahon
-            const heartRate = await API.get('HeartRateCRUD', '/HeartRate/mmacmahon');
+            const heartRate = await API.get('HeartRateCRUD', `/HeartRate/${context.state.user.username}`);
             context.commit('GET_HEART_RATE', heartRate[0]);
         },
 		async login(context, loginAttempt){

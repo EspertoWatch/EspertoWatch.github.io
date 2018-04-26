@@ -11,10 +11,10 @@
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/step-nav.png" title="My Step Count" v-bind:tabs="stepCountData | getTabs" link="StepCount"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
       </v-flex>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/heart-nav.png" title="My Heart Rate" v-bind:tabs="heartRateData | getTabs" link="HeartRate"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
       </v-flex>
     </v-layout>
   </div>
@@ -23,7 +23,7 @@
 <script>
 import HomeCard from './HomeCard.vue'
 import moment from 'moment'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'home',
@@ -39,12 +39,10 @@ export default {
     user(){
       return this.$store.state.user;
     },
-    heartRateData(){
-      return this.$store.state.heartRateData;
-    },
-    stepCountData(){
-      return this.$store.state.stepCountData;
-    },
+    ...mapGetters([
+        'getHomeCardStepData',
+        'getHomeCardHeartRateData'
+    ])
   },
   filters: {
     getTabs(data){
@@ -77,7 +75,7 @@ export default {
       ...mapActions([
           'getStepCountData',
           'getHeartRateData',
-      ]),
+      ])
   },
   mounted: function () {
       this.getStepCountData();
