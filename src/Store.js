@@ -89,7 +89,7 @@ export const store = new Vuex.Store({
             const lastMonthStepsArray = state.heartRateData.dailyHR.slice(30, 60);
             const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
             return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
-        }
+        },
 	},
 	mutations: {
 		CHANGE_USER_NAME(state, newName){

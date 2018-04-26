@@ -5,13 +5,13 @@
 	    <v-card>
 	      <v-layout row class="data-row">
 	        <div class="circle">
-	          <img class="circle-icon-calendar" src="/assets/app-images/step-nav.png"/> 
+	          <img class="circle-icon-calendar" src="/assets/app-images/step-nav.png"/>
 	        </div>
-	        <p class="data-text"> {{date | getDataText(stepCountData)}} </p>
+	        <p class="data-text"> {{date | getDataText(stepData)}} </p>
 	      </v-layout>
 	      <v-layout row class="data-row">
 	        <div class="circle">
-	          <img class="circle-icon-calendar" src="/assets/app-images/heart-nav.png"/> 
+	          <img class="circle-icon-calendar" src="/assets/app-images/heart-nav.png"/>
 	        </div>
 	        <p class="data-text"> {{date | getDataText(heartRateData)}} </p>
 	      </v-layout>
@@ -28,10 +28,10 @@ export default {
   name: 'CalendarView',
   computed:{
   	heartRateData(){
-      return this.$store.state.heartRateData;
+      return {data: this.$store.state.heartRateData.dailyHR, unit: this.$store.state.heartRateData.unit};
     },
-    stepCountData(){
-      return this.$store.state.stepCountData;
+    stepData(){
+      return {data: this.$store.state.stepCountData.dailySteps, unit: this.$store.state.stepCountData.unit};
     },
   },
   data(){
@@ -41,7 +41,8 @@ export default {
   },
   filters: {
   	getDataText(date, data){
-  		return `${data.today} ${data.unit} in total on ${date}`;
+  	    const daysFromToday = moment().diff(moment(date, 'YYYY-MM-DD'), 'days');
+  		return `${data.data[daysFromToday]} ${data.unit} on ${date}`;
   	}
   },
   methods: {
