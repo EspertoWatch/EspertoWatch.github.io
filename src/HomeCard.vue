@@ -48,17 +48,14 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-    <modal name="calendarModal" width="400" height="auto" scrollable>
-      <CalendarView @closeCalendar="closeCalendarModal"></CalendarView>
-    </modal>
-    <modal name="chartModal" width="400" height="auto" scrollable>
-      <v-card>
-        <BarChart :data="chartMetaData" :options="chartOptions" class="chart"></BarChart>
-        <v-layout justify-center>
-          <v-btn @click="closeChartModal">Close Chart View</v-btn>
-        </v-layout>
-      </v-card>
-    </modal>
+    <v-dialog v-model="calendarModal" max-width="400">
+      <CalendarView></CalendarView>
+    </v-dialog>
+    <v-dialog v-model="chartModal" max-width="400">
+        <v-card style="padding-bottom: 50px;">
+            <BarChart :data="chartMetaData" :options="chartOptions" class="chart"></BarChart>
+        </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -109,20 +106,16 @@ export default {
   data () {
     return {
       tab: null,
+      chartModal: false,
+      calendarModal: false
     }
   },
   methods: {
     showCalendarModal () {
-      this.$modal.show('calendarModal');
-    },
-    closeCalendarModal () {
-      this.$modal.hide('calendarModal');
+      this.calendarModal = true;
     },
     showChartModal(){
-      this.$modal.show('chartModal');
-    },
-    closeChartModal(){
-      this.$modal.hide('chartModal');
+      this.chartModal = true;
     }
   },
   filters:{

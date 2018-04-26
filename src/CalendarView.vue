@@ -2,7 +2,7 @@
 	<div>
 	    <v-date-picker v-model="date" color="blue" width="400">
 	    </v-date-picker>
-	    <v-card>
+	    <v-card style="padding-top: 20px; padding-bottom: 20px">
 	      <v-layout row class="data-row">
 	        <div class="circle">
 	          <img class="circle-icon-calendar" src="/assets/app-images/step-nav.png"/>
@@ -14,9 +14,6 @@
 	          <img class="circle-icon-calendar" src="/assets/app-images/heart-nav.png"/>
 	        </div>
 	        <p class="data-text"> {{date | getDataText(heartRateData)}} </p>
-	      </v-layout>
-	      <v-layout justify-center>
-	        <v-btn @click="closeCalendar">Close Calendar View</v-btn>
 	      </v-layout>
 	    </v-card>
 	  </div>
