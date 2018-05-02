@@ -11,10 +11,10 @@
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="dailyHR" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="dailySteps" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
       </v-flex>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="dailySteps" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="dailyHR" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
       </v-flex>
     </v-layout>
   </div>
