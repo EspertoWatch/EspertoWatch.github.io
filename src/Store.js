@@ -50,12 +50,9 @@ export const store = new Vuex.Store({
 			image: "",
 		},
 		user: {
-			birthDate: 914284800,
-			gender: "Male",
-			handedness: "Right",
-			height: {value: 175, unit: "cm"},
-			weight: {value: 150, unit: "lbs"},
-			isLoggedIn: false
+			isLoggedIn: false,
+			height: {value: '', unit: ''},
+			weight: {value: '', unit: ''}
 		},
 		userGoalsData: {}
 	},
@@ -128,6 +125,14 @@ export const store = new Vuex.Store({
 			state.user.username = accountInfo.username;
 			state.user.name = `${accountInfo.firstName} ${accountInfo.lastName}`;
 			state.user.isLoggedIn = true;
+		},
+		GET_USER_INFO(state, userInfo){
+			state.user.birthDate = userInfo.BirthDate;
+			state.user.gender = userInfo.gender;
+			state.user.handedness = userInfo.handedness;
+			state.user.height = {value: userInfo.height, unit: userInfo.HeightUnit};
+			state.user.weight = {value: userInfo.weight, unit: userInfo.WeightUnit};
+
 		}
 	},
 	actions: {
@@ -135,22 +140,24 @@ export const store = new Vuex.Store({
   			//api call goes here
     		context.commit('CHANGE_USER_NAME', newName);
   		},
-  		changeUserBirthdate(context, newDate){
-  			//api call goes here
+  		async changeUserBirthdate(context, newDate){
+  			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, BirthDate: newDate}});
   			context.commit('CHANGE_USER_BIRTHDATE', newDate);
   		},
-  		changeUserHeight(context, payload){
-  			//api call goes here
+  		async changeUserHeight(context, payload){
+			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, height: payload.height, HeightUnit: payload.heightUnit}});
   			context.commit('CHANGE_USER_HEIGHT', payload);
   		},
-  		changeUserWeight(context, payload){
-  			//api call goes here
+  		async changeUserWeight(context, payload){
+  			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, weight: payload.weight, WeightUnit: payload.weightUnit}});
   			context.commit('CHANGE_USER_WEIGHT', payload);
   		},
-  		changeUserHandedness(context, newHandedness){
+  		async changeUserHandedness(context, newHandedness){
+			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, handedness: newHandedness}});
   			context.commit('CHANGE_USER_HANDEDNESS', newHandedness);
   		},
-  		changeUserGender(context, newGender){
+  		async changeUserGender(context, newGender){
+			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, gender: newGender}});
   			context.commit('CHANGE_USER_GENDER', newGender);
   		},
   		async getStepCountData(context){
@@ -172,6 +179,11 @@ export const store = new Vuex.Store({
             //todo: once server changes are made to make signup more secure, need to update this action
             await API.post('AccountsCRUD', '/Accounts', signUpData);
             context.commit('LOGIN_SUCCESS', signUpData);
-		}
+		},
+		async getUserInfo(context){
+			const userInfo = await API.get('UserInfoCRUD', `/UserInfo/${context.state.user.username}`);
+			console.log(userInfo[0]);
+			context.commit('GET_USER_INFO', userInfo[0]);
+		},
 	}
 })

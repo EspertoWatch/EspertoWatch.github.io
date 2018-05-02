@@ -1,5 +1,6 @@
 --- !com.amazonaws.mobilehub.v0.Project 
 apps:
+  android: !com.amazonaws.mobilehub.v0.AppDO {}
   web: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
   cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
@@ -139,31 +140,63 @@ features:
           sdk-generation-stage-name: Development
         paths:
           /StepCountGoals: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/StepCountGoals-20180502013812.zip
+            codeFilename: uploads/StepCountGoals-20180502023443.zip
             description: 'Handler for calls to resource path : /StepCountGoals/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: bInQbhIBf9IHeGt3dccwv4AG27OtyWNT0UtpnDv0/BA=
+            hashcode: gBT8iDf7QwuZQDggnlFvUH3VC7APMBg4L4TyVR0G1cQ=
             memorySize: '128'
-            modified: '2018-05-02T05:41:17.603+0000'
+            modified: '2018-05-02T06:36:18.155+0000'
             name: StepCountGoals
             runtime: nodejs6.10
             timeout: '3'
-            version: bUVTiWpZ3gJZl.cVJrhyxTvF1rYDIg1S
+            version: RirfQmlKVkiNzPO7R6ppsaxk9LP3AVA9
           '/StepCountGoals/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/StepCountGoals-20180502013812.zip
+            codeFilename: uploads/StepCountGoals-20180502023443.zip
             description: 'Handler for calls to resource path : /StepCountGoals/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: bInQbhIBf9IHeGt3dccwv4AG27OtyWNT0UtpnDv0/BA=
+            hashcode: gBT8iDf7QwuZQDggnlFvUH3VC7APMBg4L4TyVR0G1cQ=
             memorySize: '128'
-            modified: '2018-05-02T05:41:17.603+0000'
+            modified: '2018-05-02T06:36:18.155+0000'
             name: StepCountGoals
             runtime: nodejs6.10
             timeout: '3'
-            version: AjxDPMlW_HrW4nAOYoq4FMcSMYF_aoCj
+            version: zD2V1c_8_JezGbWm0Sy5m0XOVDO4A8Kp
+      UserInfoCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: UserInfoCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /UserInfo: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/UserInfo-20180502023443.zip
+            description: 'Handler for calls to resource path : /UserInfo/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: dy4JQe/FiKof5+hPDepfnsO0C6y/ZNG291KUyJm199A=
+            memorySize: '128'
+            modified: '2018-05-02T06:36:17.829+0000'
+            name: UserInfo
+            runtime: nodejs6.10
+            timeout: '3'
+            version: 1cmE1fziMNgQiG_9RlJWrX.z1fAJZaBq
+          '/UserInfo/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/UserInfo-20180502023443.zip
+            description: 'Handler for calls to resource path : /UserInfo/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: dy4JQe/FiKof5+hPDepfnsO0C6y/ZNG291KUyJm199A=
+            memorySize: '128'
+            modified: '2018-05-02T06:36:17.829+0000'
+            name: UserInfo
+            runtime: nodejs6.10
+            timeout: '3'
+            version: tyVLSvADwYy5s9ZEzDV7SDAtrFNwbLmG
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true
@@ -198,6 +231,22 @@ features:
             rangeKeyName: ''
             rangeKeyType: ''
             tableName: ___DYNAMIC_PREFIX___-Accounts
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              BirthDate: N
+              HeightUnit: S
+              WeightUnit: S
+              gender: S
+              handedness: S
+              height: N
+              username: S
+              weight: N
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-UserInfo
             tablePrivacy: public
           - !com.amazonaws.mobilehub.v0.NoSQLTable 
             attributes:
