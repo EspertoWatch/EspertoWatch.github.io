@@ -1,6 +1,5 @@
 --- !com.amazonaws.mobilehub.v0.Project 
 apps:
-  android: !com.amazonaws.mobilehub.v0.AppDO {}
   web: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
   cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
@@ -12,31 +11,31 @@ features:
           sdk-generation-stage-name: Development
         paths:
           /Accounts: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/Accounts-20180425085248.zip
+            codeFilename: uploads/Accounts-20180502013812.zip
             description: 'Handler for calls to resource path : /Accounts/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: n2F0rLkU2h6to+GeF/L5p/Y7vlfcsuSKrrHVV/W5J80=
+            hashcode: h6vsnHGcxnnwquxHw+QlrST76xCfrdtvO/tMSzQA9HE=
             memorySize: '128'
-            modified: '2018-04-25T12:53:18.929+0000'
+            modified: '2018-05-02T05:43:40.380+0000'
             name: Accounts
             runtime: nodejs6.10
             timeout: '3'
-            version: vAjaC3maFuny_7CnUR1nMbi8pLmm03aM
+            version: SiNQSDV9MBFaHmYqYSi_cYwE6UNwo6gT
           '/Accounts/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/Accounts-20180425085248.zip
+            codeFilename: uploads/Accounts-20180502013812.zip
             description: 'Handler for calls to resource path : /Accounts/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: n2F0rLkU2h6to+GeF/L5p/Y7vlfcsuSKrrHVV/W5J80=
+            hashcode: h6vsnHGcxnnwquxHw+QlrST76xCfrdtvO/tMSzQA9HE=
             memorySize: '128'
-            modified: '2018-04-25T12:53:18.929+0000'
+            modified: '2018-05-02T05:43:40.380+0000'
             name: Accounts
             runtime: nodejs6.10
             timeout: '3'
-            version: bdkRsVqG4oQcYg_0veYul2TZwII1gb9s
+            version: lWYjAnwdFG2iyDAgnkUm.AqHnI6HtPeG
       HeartRateCRUD: !com.amazonaws.mobilehub.v0.API 
         attributes:
           name: HeartRateCRUD
@@ -44,31 +43,63 @@ features:
           sdk-generation-stage-name: Development
         paths:
           /HeartRate: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/HeartRate-20180421124203.zip
+            codeFilename: uploads/HeartRate-20180502013812.zip
             description: 'Handler for calls to resource path : /HeartRate/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: cv0SDbLVmjOGZlc6LuCNGB7uV68pS7W0eGVzixo5vwE=
+            hashcode: CWjwviUHgKW6cUgzRJoXBLIWHrLqWJqf02Jm6gCdqyM=
             memorySize: '128'
-            modified: '2018-04-21T16:42:56.237+0000'
+            modified: '2018-05-02T05:43:26.928+0000'
             name: HeartRate
             runtime: nodejs6.10
             timeout: '3'
-            version: drIbtOsPv8VmDBAT3fvulv2tVqAGaLv8
+            version: TOlT.QHYWbs3q7ngTmxoWJrpsG7XyAfd
           '/HeartRate/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/HeartRate-20180421124203.zip
+            codeFilename: uploads/HeartRate-20180502013812.zip
             description: 'Handler for calls to resource path : /HeartRate/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: cv0SDbLVmjOGZlc6LuCNGB7uV68pS7W0eGVzixo5vwE=
+            hashcode: CWjwviUHgKW6cUgzRJoXBLIWHrLqWJqf02Jm6gCdqyM=
             memorySize: '128'
-            modified: '2018-04-21T16:42:56.237+0000'
+            modified: '2018-05-02T05:43:26.928+0000'
             name: HeartRate
             runtime: nodejs6.10
             timeout: '3'
-            version: qUWg80ARgYxYZJW84emvV2JWSnKBC1LR
+            version: FTWswHGRJWMoZrZXd86_D31N4HNn4eDn
+      HeartRateGoalsCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: HeartRateGoalsCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /HeartRateGoals: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/HeartRateGoals-20180502013812.zip
+            description: 'Handler for calls to resource path : /HeartRateGoals/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: NeF2WZ8wOVmVQ6ctPbSz6VMRpSB7/e69//nsP3m+v7I=
+            memorySize: '128'
+            modified: '2018-05-02T05:41:16.013+0000'
+            name: HeartRateGoals
+            runtime: nodejs6.10
+            timeout: '3'
+            version: G6kAWmlIND6jXdC4BtvstaJX71hltFYN
+          '/HeartRateGoals/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/HeartRateGoals-20180502013812.zip
+            description: 'Handler for calls to resource path : /HeartRateGoals/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: NeF2WZ8wOVmVQ6ctPbSz6VMRpSB7/e69//nsP3m+v7I=
+            memorySize: '128'
+            modified: '2018-05-02T05:41:16.013+0000'
+            name: HeartRateGoals
+            runtime: nodejs6.10
+            timeout: '3'
+            version: ILIYFrVAioDfFjgLSfyoe_TZkpYihsoj
       StepCountCRUD: !com.amazonaws.mobilehub.v0.API 
         attributes:
           name: StepCountCRUD
@@ -76,31 +107,63 @@ features:
           sdk-generation-stage-name: Development
         paths:
           /StepCount: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/StepCount-20180421120923.zip
+            codeFilename: uploads/StepCount-20180502013812.zip
             description: 'Handler for calls to resource path : /StepCount/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: ot/EsbYEqk4mm7RMP2csZ3g6H4KSWocne0Y9W22hbGk=
+            hashcode: 5ATNRlCjku9U055uwatNO4CwUyyqvn/wqt5kQv9DaY8=
             memorySize: '128'
-            modified: '2018-04-21T16:10:33.649+0000'
+            modified: '2018-05-02T05:41:16.083+0000'
             name: StepCount
             runtime: nodejs6.10
             timeout: '3'
-            version: nCZrLD9IjRfBoas4TmMziCbCLNXOdunS
+            version: oMKS_fq5lkRyCfy2NpyEmxyUPq9jS_Lm
           '/StepCount/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/StepCount-20180421120923.zip
+            codeFilename: uploads/StepCount-20180502013812.zip
             description: 'Handler for calls to resource path : /StepCount/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: ot/EsbYEqk4mm7RMP2csZ3g6H4KSWocne0Y9W22hbGk=
+            hashcode: 5ATNRlCjku9U055uwatNO4CwUyyqvn/wqt5kQv9DaY8=
             memorySize: '128'
-            modified: '2018-04-21T16:10:33.649+0000'
+            modified: '2018-05-02T05:41:16.083+0000'
             name: StepCount
             runtime: nodejs6.10
             timeout: '3'
-            version: rXKdKRN6EtlnUJ2jlUz3dLdyTWF_xUEX
+            version: r0fg5yrXU8rtwRBnmT1fn7519ClkBUyx
+      StepCountGoalsCRUD: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: StepCountGoalsCRUD
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /StepCountGoals: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/StepCountGoals-20180502013812.zip
+            description: 'Handler for calls to resource path : /StepCountGoals/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: bInQbhIBf9IHeGt3dccwv4AG27OtyWNT0UtpnDv0/BA=
+            memorySize: '128'
+            modified: '2018-05-02T05:41:17.603+0000'
+            name: StepCountGoals
+            runtime: nodejs6.10
+            timeout: '3'
+            version: bUVTiWpZ3gJZl.cVJrhyxTvF1rYDIg1S
+          '/StepCountGoals/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/StepCountGoals-20180502013812.zip
+            description: 'Handler for calls to resource path : /StepCountGoals/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: bInQbhIBf9IHeGt3dccwv4AG27OtyWNT0UtpnDv0/BA=
+            memorySize: '128'
+            modified: '2018-05-02T05:41:17.603+0000'
+            name: StepCountGoals
+            runtime: nodejs6.10
+            timeout: '3'
+            version: AjxDPMlW_HrW4nAOYoq4FMcSMYF_aoCj
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true
@@ -113,6 +176,22 @@ features:
         tables:
           - !com.amazonaws.mobilehub.v0.NoSQLTable 
             attributes:
+              currentGoal: N
+              goalHistory: NS
+              isAutoset: BOOL
+              username: S
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-StepCountGoals
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              deviceAddress: S
+              firstName: S
+              lastName: S
+              password: S
               username: S
             hashKeyName: username
             hashKeyType: S
@@ -122,6 +201,8 @@ features:
             tablePrivacy: public
           - !com.amazonaws.mobilehub.v0.NoSQLTable 
             attributes:
+              current: N
+              dailySteps: NS
               username: S
             hashKeyName: username
             hashKeyType: S
@@ -131,12 +212,26 @@ features:
             tablePrivacy: public
           - !com.amazonaws.mobilehub.v0.NoSQLTable 
             attributes:
+              current: N
+              dailyHR: NS
               username: S
             hashKeyName: username
             hashKeyType: S
             rangeKeyName: ''
             rangeKeyType: ''
             tableName: ___DYNAMIC_PREFIX___-HeartRate
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              currentGoal: N
+              goalHistory: NS
+              isAutoset: BOOL
+              username: S
+            hashKeyName: username
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-HeartRateGoals
             tablePrivacy: public
   mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
     components:

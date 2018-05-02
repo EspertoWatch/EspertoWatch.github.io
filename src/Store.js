@@ -117,11 +117,11 @@ export const store = new Vuex.Store({
 			state.user.apiHeartRate = heartRate;
 		},
         GET_STEP_COUNT(state, stepCount){
-            state.stepCountData.current = stepCount.currentSteps;
+            state.stepCountData.current = stepCount.current;
             state.stepCountData.dailySteps = stepCount.dailySteps.values;
         },
         GET_HEART_RATE(state, heartRate){
-            state.heartRateData.current = heartRate.currentHR;
+            state.heartRateData.current = heartRate.current;
             state.heartRateData.dailyHR = heartRate.dailyHR.values;
         },
 		LOGIN_SUCCESS(state, accountInfo){
