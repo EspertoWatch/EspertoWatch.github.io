@@ -11,7 +11,6 @@
           includes="Goal Line"
           :graph-type-choices="['Bar', 'Line']"
           :time-period-choices="['Today', 'This Week', 'This Month']"
-          :includes-choices="['Goal Line', 'Average Line']"
         />
       </v-card>
       <v-card width="45vw">

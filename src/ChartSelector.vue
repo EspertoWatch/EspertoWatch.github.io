@@ -22,17 +22,6 @@
                 @input="updateTitle"
             ></v-select>
             </v-flex>
-            <v-flex xs4>
-            <p class="input-label">Include: </p>
-            </v-flex>
-            <v-flex xs7>
-            <v-select
-                :items="includesChoices"
-                v-model="includes"
-                multiple
-                chips
-            ></v-select>
-            </v-flex>
         </v-layout>
     </div>
 </template>
@@ -50,7 +39,6 @@ export default {
       includes: String,
       graphTypeChoices: Array,
       timePeriodChoices: Array,
-      includesChoices: Array
   },
   components: {
     LineChart,
