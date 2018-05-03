@@ -4,8 +4,9 @@
     <v-layout row justify-space-around>
       <v-card width="45vw">
         <ChartSelector 
-          :fake-chart-data="fakeChartData" 
-          :fake-chart-options="fakeChartOptions"
+          :dayData="dayHR"
+          :weekData="weekHR"
+          :monthData="monthHR"
           graph-type="Bar"
           time-period="Today"
           includes="Goal Line"
@@ -38,37 +39,21 @@ import ChartSelector from './Chartselector.vue'
 import VueCircle from 'vue2-circle-progress'
 export default {
   name: 'HeartRate',
-  data() {
-    return{
-      fakeChartData: {
-        labels: ['January', 'February'],
-        datasets: [
-          {
-            label: 'Fake Label',
-            backgroundColor: '#f87979',
-            data: [40, 20]
-          }
-        ]
-      },
-      fakeChartOptions: {
-        title: {
-          display: true,
-          text: 'Fake Chart Title',
-          fontSize: 20
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-      },
-    }
-  },
   components: {
     ChartSelector,
     VueCircle
+  },
+  computed: {
+    //note these are kinda useless for now but will change 
+    dayHR(){
+       return this.$store.state.heartRateData.dailyHR.slice(0, 1);
+    },
+    weekHR(){
+       return this.$store.state.heartRateData.dailyHR.slice(0, 7);
+    },
+    monthHR(){
+       return this.$store.state.heartRateData.dailyHR.slice(0, 30);
+    }
   },
 }
 </script>

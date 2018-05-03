@@ -4,8 +4,9 @@
     <v-layout row justify-space-around>
       <v-card width="45vw">
         <ChartSelector 
-          :fake-chart-data="fakeChartData" 
-          :fake-chart-options="fakeChartOptions"
+          :dayData="daySteps"
+          :weekData="weekSteps"
+          :monthData="monthSteps"
           graph-type="Bar"
           time-period="Today"
           includes="Goal Line"
@@ -32,38 +33,19 @@ export default {
     StepArchMeter,
     ChartSelector
   },
-  data(){
-    return{
-      fakeChartData: {
-        labels: ['January', 'February'],
-        datasets: [
-          {
-            label: 'Fake Label',
-            backgroundColor: '#f87979',
-            data: [40, 20]
-          }
-        ]
-      },
-      fakeChartOptions: {
-        title: {
-          display: true,
-          text: 'Fake Chart Title',
-          fontSize: 20
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-      },
-    }
-  },
   computed: {
     ...mapGetters([
         'stepGoalProgress'
     ]),
+    daySteps(){
+       return this.$store.state.stepCountData.dailySteps.slice(0, 1);
+    },
+    weekSteps(){
+       return this.$store.state.stepCountData.dailySteps.slice(0, 7);
+    },
+    monthSteps(){
+       return this.$store.state.stepCountData.dailySteps.slice(0, 30);
+    }
   },
   filters:{
     getPercentageForStep(stepGoalProgress, basePercentage){

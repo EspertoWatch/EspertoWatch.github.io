@@ -56,7 +56,10 @@ export const store = new Vuex.Store({
 			height: {value: '', unit: ''},
 			weight: {value: '', unit: ''}
 		},
-		userGoalsData: {}
+		userGoalsData: {
+			heartRateGoals: {},
+			stepGoals: {}
+		}
 	},
 	getters: {
 		getHomeCardStepData: state => {
