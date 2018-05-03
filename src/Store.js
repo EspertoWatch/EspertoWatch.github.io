@@ -89,6 +89,11 @@ export const store = new Vuex.Store({
             const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
             return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
         },
+		stepGoalProgress: state => {
+			const currentSteps = state.stepCountData.current;
+			const stepCountGoal = state.userGoalsData.stepGoals.currentGoal;
+			return (currentSteps/stepCountGoal)*100;
+		}
 	},
 	mutations: {
 		CHANGE_USER_NAME(state, newName){
@@ -145,6 +150,12 @@ export const store = new Vuex.Store({
 			state.user.height = {value: userInfo.height, unit: userInfo.HeightUnit};
 			state.user.weight = {value: userInfo.weight, unit: userInfo.WeightUnit};
 		},
+		GET_USER_STEP_GOALS(state, stepGoals){
+			state.userGoalsData.stepGoals = stepGoals;
+		},
+		GET_USER_HEART_GOALS(state, heartRateGoals){
+			state.userGoalsData.heartRateGoals = heartRateGoals;
+		},
 		NEW_PASS_REQUIRED(state, cognitoUser){
 			state.user.cognitoUser = cognitoUser;
 			state.user.mustChangePass = true;
@@ -187,6 +198,14 @@ export const store = new Vuex.Store({
 			const userInfo = await API.get('UserInfoCRUD', `/UserInfo/${context.state.user.username}`);
 			console.log(userInfo[0]);
 			context.commit('GET_USER_INFO', userInfo[0]);
+		},
+		async getStepCountGoals(context){
+			const stepCountGoals = await API.get('StepCountGoalsCRUD', `/StepCountGoals/${context.state.user.username}`);
+			context.commit('GET_USER_STEP_GOALS', stepCountGoals[0]);
+		},
+		async getHeartRateGoals(context){
+			const heartRateGoals = await API.get('HeartRateGoalsCRUD', `/HeartRateGoals/${context.state.user.username}`);
+			context.commit('GET_USER_HEART_GOALS', heartRateGoals[0]);
 		},
 		async login(context, loginAttempt){
 			try {

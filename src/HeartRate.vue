@@ -14,7 +14,8 @@
         />
       </v-card>
       <v-card width="45vw">
-         <vue-circle
+        <div style="margin-top: 15px;">
+          <vue-circle
           :progress="50"
           :size="300"
           :reverse=false
@@ -26,6 +27,7 @@
           :thickness="15"
           :show-percent=false>
         </vue-circle>
+        </div>
       </v-card>
     </v-layout>
   </div>

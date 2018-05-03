@@ -14,7 +14,9 @@
         />
       </v-card>
       <v-card width="45vw">
-        <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
+        <div style="margin-top: 15px;">
+          <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
+        </div>
       </v-card>
     </v-layout>
   </div>
@@ -23,6 +25,7 @@
 <script>
 import StepArchMeter from './StepArchMeter.vue'
 import ChartSelector from './Chartselector.vue'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'StepCount',
   components: {
@@ -55,8 +58,12 @@ export default {
             }]
         }
       },
-      stepGoalProgress: 65
     }
+  },
+  computed: {
+    ...mapGetters([
+        'stepGoalProgress'
+    ]),
   },
   filters:{
     getPercentageForStep(stepGoalProgress, basePercentage){

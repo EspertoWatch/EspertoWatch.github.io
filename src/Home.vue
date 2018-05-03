@@ -81,13 +81,17 @@ export default {
       ...mapActions([
           'getStepCountData',
           'getHeartRateData',
-          'getUserInfo'
+          'getUserInfo',
+          'getStepCountGoals',
+          'getHeartRateGoals'
       ])
   },
   mounted: function () {
       this.getStepCountData();
       this.getHeartRateData();
       this.getUserInfo();
+      this.getStepCountGoals();
+      this.getHeartRateGoals();
   },
   components: {
     HomeCard
