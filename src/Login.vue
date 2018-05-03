@@ -60,6 +60,45 @@
                     </v-flex>
                 </v-layout>
             </div>
+            <div v-else-if="mustChangePass">
+                <v-container>
+                    <v-layout row justify-center>
+                        <v-flex xs9>
+                           <v-text-field
+                                    v-model="confirmEmail"
+                                    label="Confirm Email"
+                            />
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row justify-center>
+                        <v-flex xs9>
+                            <v-text-field
+                                    v-model="newPassword"
+                                    label="New Password"
+                                    :append-icon="visible4 ? 'visibility' : 'visibility_off'"
+                                    :append-icon-cb="() => (visible4 = !visible4)"
+                                    :type="visible4 ? 'text' : 'password'"
+                            />
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row justify-center>
+                        <v-flex xs9>
+                            <v-text-field
+                                    v-model="newPasswordConfirm"
+                                    label="Confirm Password"
+                                    :append-icon="visible5 ? 'visibility' : 'visibility_off'"
+                                    :append-icon-cb="() => (visible5 = !visible5)"
+                                    :type="visible5 ? 'text' : 'password'"
+                            />
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+                <v-layout row justify-center>
+                    <v-flex xs9>
+                        <v-btn @click="clickResetPass" round block color="primary" dark>Reset Password</v-btn>
+                    </v-flex>
+                </v-layout>
+            </div>
             <div v-else>
                 <v-container>
                     <v-layout row justify-center>
@@ -108,6 +147,8 @@
                 visible1: false,
                 visible2: false,
                 visible3: false,
+                visible4: false,
+                visible5: false,
                 loginInfo: {
                     username: '',
                     password: '',
@@ -118,7 +159,18 @@
                     username: '',
                     password: '',
                 },
-                passwordConfirm: ''
+                passwordConfirm: '',
+                newPassword: '',
+                newPasswordConfirm: '',
+                confirmEmail: ''
+            }
+        },
+        computed: {
+            mustChangePass(){
+                return this.$store.state.user.mustChangePass;
+            },
+            cognitoUser(){
+                return this.$store.state.user.cognitoUser
             }
         },
         methods: {
@@ -128,7 +180,8 @@
             },
             ...mapActions([
                 'login',
-                'signUp'
+                'signUp',
+                'resetPassword'
             ]),
             clickLogin(){
                 this.login(this.loginInfo);
@@ -136,6 +189,15 @@
             clickSignUp(){
                 //todo: add validation logic
                 this.signUp(this.signUpInfo);
+            },
+            clickResetPass(){
+                if(this.newPassword = this.newPasswordConfirm){
+                    const payload = {cognitoUser: this.cognitoUser, password: this.newPassword, email: this.confirmEmail};
+                    this.resetPassword(payload);
+                }
+                else{
+                    alert('Passwords do not match');
+                }
             }
         },
     }

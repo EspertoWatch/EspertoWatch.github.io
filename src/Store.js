@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API } from 'aws-amplify';
 import Amplify from 'aws-amplify';
 import awsmobile from './aws-exports';
+import { Auth } from "aws-amplify";
 
 Amplify.configure(awsmobile);
 
@@ -51,6 +52,7 @@ export const store = new Vuex.Store({
 		},
 		user: {
 			isLoggedIn: false,
+			mustChangePass: false,
 			height: {value: '', unit: ''},
 			weight: {value: '', unit: ''}
 		},
@@ -125,6 +127,7 @@ export const store = new Vuex.Store({
 			state.user.username = accountInfo.username;
 			state.user.name = `${accountInfo.firstName} ${accountInfo.lastName}`;
 			state.user.isLoggedIn = true;
+			state.user.mustChangePass = false;
 		},
 		GET_USER_INFO(state, userInfo){
 			state.user.birthDate = userInfo.BirthDate;
@@ -132,7 +135,10 @@ export const store = new Vuex.Store({
 			state.user.handedness = userInfo.handedness;
 			state.user.height = {value: userInfo.height, unit: userInfo.HeightUnit};
 			state.user.weight = {value: userInfo.weight, unit: userInfo.WeightUnit};
-
+		},
+		NEW_PASS_REQUIRED(state, cognitoUser){
+			state.user.cognitoUser = cognitoUser;
+			state.user.mustChangePass = true;
 		}
 	},
 	actions: {
@@ -168,22 +174,51 @@ export const store = new Vuex.Store({
             const heartRate = await API.get('HeartRateCRUD', `/HeartRate/${context.state.user.username}`);
             context.commit('GET_HEART_RATE', heartRate[0]);
         },
+		async getUserInfo(context){
+			const userInfo = await API.get('UserInfoCRUD', `/UserInfo/${context.state.user.username}`);
+			console.log(userInfo[0]);
+			context.commit('GET_USER_INFO', userInfo[0]);
+		},
 		async login(context, loginAttempt){
-  			//todo: once server changes are made to make login more secure, need to update this action
-			const accountInfo = await API.get('AccountsCRUD', `/Accounts/${loginAttempt.username}`);
-			if( (accountInfo.length > 0) && (accountInfo[0].password === loginAttempt.password) ){
-				context.commit('LOGIN_SUCCESS', accountInfo[0]);
+			try {
+				await Auth.signIn(loginAttempt.username, loginAttempt.password)
+					.then(function(res){
+						if(res.challengeName === 'NEW_PASSWORD_REQUIRED'){
+							context.commit('NEW_PASS_REQUIRED', res);
+						}
+						else{
+							context.dispatch('fetchUserAccount', loginAttempt.username);
+						}
+					});
+			} catch (e) {
+				alert(e.message);
 			}
+		},
+		async fetchUserAccount(context, username){
+			const accountInfo = await API.get('AccountsCRUD', `/Accounts/${username}`);
+			context.commit('LOGIN_SUCCESS', accountInfo[0]);
 		},
 		async signUp(context, signUpData){
             //todo: once server changes are made to make signup more secure, need to update this action
             await API.post('AccountsCRUD', '/Accounts', signUpData);
             context.commit('LOGIN_SUCCESS', signUpData);
 		},
-		async getUserInfo(context){
-			const userInfo = await API.get('UserInfoCRUD', `/UserInfo/${context.state.user.username}`);
-			console.log(userInfo[0]);
-			context.commit('GET_USER_INFO', userInfo[0]);
+		async checkAuthentication(context){
+			await Auth.currentUserInfo()
+					.then(function(res){
+						if(res){
+							context.dispatch('fetchUserAccount', res.username)
+						}
+						else{
+							alert('No user signed in');
+						}
+					});
 		},
+		async resetPassword(context, payload){
+			await Auth.completeNewPassword(payload.cognitoUser, payload.password, {email: payload.email})
+				.then(function(res){
+					context.dispatch('fetchUserAccount', payload.cognitoUser.username);
+				});
+		}
 	}
 })

@@ -24,6 +24,7 @@
 
 <script>
 import Login from './Login.vue';
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data () {
@@ -38,7 +39,15 @@ export default {
   },
   components: {
     Login
-  }
+  },
+  methods: {
+      ...mapActions([
+          'checkAuthentication'
+      ])
+  },
+  mounted: function () {
+     this.checkAuthentication();
+  },
 }
 </script>
 
