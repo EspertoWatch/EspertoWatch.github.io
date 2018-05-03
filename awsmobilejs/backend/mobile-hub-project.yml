@@ -224,7 +224,6 @@ features:
               deviceAddress: S
               firstName: S
               lastName: S
-              password: S
               username: S
             hashKeyName: username
             hashKeyType: S

@@ -129,6 +129,15 @@ export const store = new Vuex.Store({
 			state.user.isLoggedIn = true;
 			state.user.mustChangePass = false;
 		},
+		LOGOUT_SUCCESS(state){
+			//reset to default state upon logout
+			state.user = {
+				isLoggedIn: false,
+				mustChangePass: false,
+				height: {value: '', unit: ''},
+				weight: {value: '', unit: ''}
+			};
+		},
 		GET_USER_INFO(state, userInfo){
 			state.user.birthDate = userInfo.BirthDate;
 			state.user.gender = userInfo.gender;
@@ -210,7 +219,7 @@ export const store = new Vuex.Store({
 							context.dispatch('fetchUserAccount', res.username)
 						}
 						else{
-							alert('No user signed in');
+							console.log('No user signed in');
 						}
 					});
 		},
@@ -219,6 +228,12 @@ export const store = new Vuex.Store({
 				.then(function(res){
 					context.dispatch('fetchUserAccount', payload.cognitoUser.username);
 				});
+		},
+		async logout(context){
+			 await Auth.signOut()
+			 	.then(function(){
+					 context.commit('LOGOUT_SUCCESS');
+				 });
 		}
 	}
 })

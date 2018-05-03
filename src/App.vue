@@ -5,9 +5,14 @@
       <v-toolbar-title><router-link to="/"><img src="/assets/app-images/espertoLogo.png" class="esperto-logo"></router-link></v-toolbar-title>
       <v-spacer/>
       <div class="nav-logos">
-        <router-link to="Profile"><img src="/assets/app-images/profile-nav.png"></router-link>
-        <router-link to="StepCount"><img src="/assets/app-images/step-nav.png"></router-link>
-        <router-link to="HeartRate"><img src="/assets/app-images/heart-nav.png"></router-link>
+        <v-layout row>
+          <router-link to="Profile"><img src="/assets/app-images/profile-nav.png"></router-link>
+          <router-link to="StepCount"><img src="/assets/app-images/step-nav.png"></router-link>
+          <router-link to="HeartRate"><img src="/assets/app-images/heart-nav.png"></router-link>
+          <div style=" display: flex; flex-direction: column; justify-content: center;">
+            <a @click='logout'>Logout</a>
+          </div>
+        </v-layout>
       </div>
       </v-toolbar>
       <v-content>
@@ -42,7 +47,8 @@ export default {
   },
   methods: {
       ...mapActions([
-          'checkAuthentication'
+          'checkAuthentication',
+          'logout'
       ])
   },
   mounted: function () {
