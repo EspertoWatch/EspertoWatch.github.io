@@ -37,7 +37,7 @@ export default {
     type: String,
     options: Array,
     unit: String,
-    submitFunction: Function
+    submitFunction: Function,
   },
   methods: {
     onPressIcon: function(){

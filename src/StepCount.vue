@@ -15,8 +15,10 @@
         />
       </v-card>
       <v-card width="45vw">
-        <div style="margin-top: 15px;">
+        <div style="margin-top: 30px;">
           <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
+          <p class="main-value">{{daySteps[0]}}/{{Math.round(daySteps[0]*100/stepGoalProgress, 0)}}</p>
+          <p class="desc-text">You've achieved {{stepGoalProgress}}% of your daily step goal, keep up the good work!</p>
         </div>
       </v-card>
     </v-layout>
@@ -46,6 +48,16 @@ export default {
     monthSteps(){
        return this.$store.state.stepCountData.dailySteps.slice(0, 30);
     }
+  },
+  methods: {
+      ...mapActions([
+          'getStepCountData',
+          'getStepCountGoals',
+      ])
+  },
+  mounted: function () {
+      this.getStepCountData();
+      this.getStepCountGoals();
   },
   filters:{
     getPercentageForStep(stepGoalProgress, basePercentage){
@@ -83,4 +95,16 @@ li {
 a {
   color: #42b983;
 }
+
+.desc-text{
+  font-size: 1.8rem !important;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.main-value{
+  font-size: 3.2rem !important;
+  font-weight: 545;
+}
+
 </style>

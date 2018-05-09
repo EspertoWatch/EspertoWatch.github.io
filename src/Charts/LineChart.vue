@@ -12,6 +12,13 @@
 	        this.renderChart(this.data, this.options)
 	      },
 	      deep: true
+	    },
+			'data': {
+	      handler (newData, oldData) {
+	        this.$data._chart.destroy()
+	        this.renderChart(this.data, this.options)
+	      },
+	      deep: true
 	    }
 	  },
 	  mounted () {

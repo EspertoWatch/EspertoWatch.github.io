@@ -42,6 +42,14 @@
             <p class="section-header-text">My Goals</p>
           </v-flex>
       </v-layout>
+      <v-layout row justify-space-around style="margin-bottom: 10px">
+            <v-flex xs5>
+                <EditField label="Heart Rate" :value="heartRateGoals.currentGoal" :submitFunction="changeHeartGoal" iconName="edit"/>
+            </v-flex>
+            <v-flex xs5>
+                <EditField label="Step Count" :value="stepGoals.currentGoal" :submitFunction="changeStepGoal"  iconName="edit"/>
+            </v-flex>
+      </v-layout>
   </div>
 </template>
 
@@ -63,6 +71,12 @@ export default {
     device(){
       return this.$store.state.device;
     },
+    heartRateGoals(){
+      return this.$store.state.userGoalsData.heartRateGoals;
+    },
+    stepGoals(){
+      return this.$store.state.userGoalsData.stepGoals;
+    },
   },
   filters: {
     timestampToReadableBirthDate(date){
@@ -83,7 +97,17 @@ export default {
         'changeUserWeight',
         'changeUserHandedness',
         'changeUserGender',
+        'changeStepGoal',
+        'changeHeartGoal',
+        'getUserInfo',
+        'getStepCountGoals',
+        'getHeartRateGoals'
       ]),
+  },
+  mounted: function () {
+      this.getUserInfo();
+      this.getStepCountGoals();
+      this.getHeartRateGoals();
   },
   components: {
     EditField

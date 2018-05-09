@@ -120,8 +120,11 @@ export const store = new Vuex.Store({
 		CHANGE_USER_GENDER(state, newGender){
 			state.user.gender = newGender;
 		},
-		GET_HEART_RATE(state, heartRate){
-			state.user.apiHeartRate = heartRate;
+		CHANGE_STEP_GOAL(state, newGoal){
+			state.userGoalsData.stepGoals.currentGoal = newGoal;
+		},
+		CHANGE_HEART_GOAL(state, newGoal){
+			state.userGoalsData.heartRateGoals.currentGoal = newGoal;
 		},
         GET_STEP_COUNT(state, stepCount){
             state.stepCountData.current = stepCount.current;
@@ -189,6 +192,18 @@ export const store = new Vuex.Store({
 			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, gender: newGender}});
   			context.commit('CHANGE_USER_GENDER', newGender);
   		},
+		
+		//still need to add api calls here
+		//right now newGoal just contains new int to be set as currentGoal
+		//eventually will need to be an object with isAutoset and currentGoal
+		changeStepGoal(context, newGoal){
+			context.commit('CHANGE_STEP_GOAL', newGoal);
+		},
+		changeHeartGoal(context, newGoal){
+			context.commit('CHANGE_HEART_GOAL', newGoal);
+		},
+
+
   		async getStepCountData(context){
             const stepCount = await API.get('StepCountCRUD', `/StepCount/${context.state.user.username}`);
 			context.commit('GET_STEP_COUNT', stepCount[0]);

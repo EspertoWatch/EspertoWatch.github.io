@@ -37,6 +37,7 @@
 <script>
 import ChartSelector from './Chartselector.vue'
 import VueCircle from 'vue2-circle-progress'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'HeartRate',
   components: {
@@ -54,6 +55,16 @@ export default {
     monthHR(){
        return this.$store.state.heartRateData.dailyHR.slice(0, 30);
     }
+  },
+  methods: {
+      ...mapActions([
+          'getHeartRateData',
+          'getHeartRateGoals'
+      ])
+  },
+  mounted: function () {
+      this.getHeartRateData();
+      this.getHeartRateGoals();
   },
 }
 </script>
