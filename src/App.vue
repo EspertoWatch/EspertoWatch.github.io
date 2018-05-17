@@ -1,6 +1,6 @@
 <template>
   <v-app style="backgroundColor: #fdfbfb">
-    <div v-if="user.isLoggedIn">
+    <div v-if="loginStatus.isLoggedIn">
      <v-toolbar flat style=" backgroundColor: #fff; border-bottom: solid 1px; border-color: #d3d3d3">
       <v-toolbar-title><router-link to="/"><img src="/assets/app-images/espertoLogo.png" class="esperto-logo"></router-link></v-toolbar-title>
       <v-spacer/>
@@ -38,8 +38,8 @@ export default {
     }
   },
   computed: {
-    user(){
-        return this.$store.state.user;
+    loginStatus(){
+        return this.$store.state.loginStatus;
     },
   },
   components: {

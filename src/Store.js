@@ -67,11 +67,10 @@ export const store = new Vuex.Store({
 			},
 			image: "",
 		},
-		user: {
+		user: {},
+		loginStatus: {
 			isLoggedIn: false,
 			mustChangePass: false,
-			height: {value: '', unit: ''},
-			weight: {value: '', unit: ''}
 		},
 		userGoalsData: {
 			heartRateGoals: {},
@@ -124,12 +123,12 @@ export const store = new Vuex.Store({
 			state.user.birthDate = dateTimeStamp;
 		},
 		CHANGE_USER_HEIGHT(state, payload){
-			state.user.height.value = payload.value;
-			state.user.height.unit = payload.unit;
+			state.user.height = payload.value;
+			state.user.heightUnit = payload.unit;
 		},
 		CHANGE_USER_WEIGHT(state, payload){
-			state.user.weight.value = payload.value;
-			state.user.weight.unit = payload.unit;
+			state.user.weight = payload.value;
+			state.user.weightUnit = payload.unit;
 		},
 		CHANGE_USER_HANDEDNESS(state, newHandedness){
 			state.user.handedness = newHandedness;
@@ -153,24 +152,14 @@ export const store = new Vuex.Store({
         },
 		LOGOUT_SUCCESS(state){
 			//reset to default state upon logout
-			state.user = {
+			state.loginStatus = {
 				isLoggedIn: false,
 				mustChangePass: false,
-				height: {value: '', unit: ''},
-				weight: {value: '', unit: ''}
-			};
+			}
 		},
 		GET_USER_INFO(state, userInfo){
-			state.user.birthDate = userInfo.birthDate;
-			state.user.gender = userInfo.gender;
-			state.user.handedness = userInfo.handedness;
-			state.user.height = {value: userInfo.height, unit: userInfo.heightUnit};
-			state.user.weight = {value: userInfo.weight, unit: userInfo.weightUnit};
-			state.user.userId = userInfo.userId;
-			state.user.name = `${userInfo.firstName} ${userInfo.lastName}`;
-			state.user.firstName = userInfo.firstName;
-			state.user.lastName = userInfo.lastName;
-			state.user.isLoggedIn = true;
+			state.user = userInfo;
+			state.loginStatus.isLoggedIn = true;
 		},
 		GET_USER_STEP_GOALS(state, stepGoals){
 			state.userGoalsData.stepGoals = stepGoals;
@@ -179,33 +168,47 @@ export const store = new Vuex.Store({
 			state.userGoalsData.heartRateGoals = heartRateGoals;
 		},
 		NEW_PASS_REQUIRED(state, cognitoUser){
-			state.user.cognitoUser = cognitoUser;
-			state.user.mustChangePass = true;
+			state.cognitoUser = cognitoUser;
+			state.loginStatus.mustChangePass = true;
 		}
 	},
 	actions: {
-  		changeUserName (context, newName) {
-  			//api call goes here
+  		async changeUserName (context, newName) {
+  			const userObj = Object.assign({}, context.state.user);
+			userObj.name = newName;
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
     		context.commit('CHANGE_USER_NAME', newName);
   		},
   		async changeUserBirthdate(context, newDate){
-  			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, BirthDate: newDate}});
+			const userObj = Object.assign({}, context.state.user);
+			userObj.birthDate = newDate;
+  			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
   			context.commit('CHANGE_USER_BIRTHDATE', newDate);
   		},
   		async changeUserHeight(context, payload){
-			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, height: payload.height, HeightUnit: payload.heightUnit}});
+			const userObj = Object.assign({}, context.state.user);
+			userObj.height = payload.value;
+			userObj.heightUnit = payload.unit;
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
   			context.commit('CHANGE_USER_HEIGHT', payload);
   		},
   		async changeUserWeight(context, payload){
-  			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, weight: payload.weight, WeightUnit: payload.weightUnit}});
+  			const userObj = Object.assign({}, context.state.user);
+			userObj.weight = payload.value;
+			userObj.weightUnit = payload.unit;
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
   			context.commit('CHANGE_USER_WEIGHT', payload);
   		},
   		async changeUserHandedness(context, newHandedness){
-			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, handedness: newHandedness}});
+			const userObj = Object.assign({}, context.state.user);
+			userObj.handedness = newHandedness;
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
   			context.commit('CHANGE_USER_HANDEDNESS', newHandedness);
   		},
   		async changeUserGender(context, newGender){
-			const res = await API.put('UserInfoCRUD', '/UserInfo', {body: {username: context.state.user.username, gender: newGender}});
+			const userObj = Object.assign({}, context.state.user);
+			userObj.gender = newGender;
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
   			context.commit('CHANGE_USER_GENDER', newGender);
   		},
 		

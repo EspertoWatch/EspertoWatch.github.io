@@ -15,10 +15,10 @@
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
             <v-flex xs5>
-                <EditField label="Height" :value="user.height.value" :unit="user.height.unit" :options="['cm', 'inches']" iconName="edit" type="unitField" :submitFunction="changeUserHeight"/>
+                <EditField label="Height" :value="user.height" :unit="user.heightUnit" :options="['cm', 'inches']" iconName="edit" type="unitField" :submitFunction="changeUserHeight"/>
             </v-flex>
             <v-flex xs5>
-                <EditField label="Weight" :value="user.weight.value" :unit="user.weight.unit" :options="['lbs', 'kg']" type="unitField" iconName="edit" :submitFunction="changeUserWeight"/>
+                <EditField label="Weight" :value="user.weight" :unit="user.weightUnit" :options="['lbs', 'kg']" type="unitField" iconName="edit" :submitFunction="changeUserWeight"/>
             </v-flex>
       </v-layout>
       <v-layout row justify-space-around style="margin-bottom: 10px">
