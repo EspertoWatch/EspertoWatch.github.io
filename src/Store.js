@@ -4,10 +4,27 @@ import moment from 'moment'
 import axios from 'axios';
 import { API } from 'aws-amplify';
 import Amplify from 'aws-amplify';
-import awsmobile from './aws-exports';
+import config from "./config";
 import { Auth } from "aws-amplify";
 
-Amplify.configure(awsmobile);
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    identityPoolId: config.cognito.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  },
+  API: {
+    endpoints: [
+      {
+        name: "esperto-app",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION
+      },
+    ]
+  }
+});
 
 Vue.use(Vuex);
 "use strict";
@@ -134,12 +151,6 @@ export const store = new Vuex.Store({
             state.heartRateData.current = heartRate.current;
             state.heartRateData.dailyHR = heartRate.dailyHR.values;
         },
-		LOGIN_SUCCESS(state, accountInfo){
-			state.user.username = accountInfo.username;
-			state.user.name = `${accountInfo.firstName} ${accountInfo.lastName}`;
-			state.user.isLoggedIn = true;
-			state.user.mustChangePass = false;
-		},
 		LOGOUT_SUCCESS(state){
 			//reset to default state upon logout
 			state.user = {
@@ -150,11 +161,16 @@ export const store = new Vuex.Store({
 			};
 		},
 		GET_USER_INFO(state, userInfo){
-			state.user.birthDate = userInfo.BirthDate;
+			state.user.birthDate = userInfo.birthDate;
 			state.user.gender = userInfo.gender;
 			state.user.handedness = userInfo.handedness;
-			state.user.height = {value: userInfo.height, unit: userInfo.HeightUnit};
-			state.user.weight = {value: userInfo.weight, unit: userInfo.WeightUnit};
+			state.user.height = {value: userInfo.height, unit: userInfo.heightUnit};
+			state.user.weight = {value: userInfo.weight, unit: userInfo.weightUnit};
+			state.user.userId = userInfo.userId;
+			state.user.name = `${userInfo.firstName} ${userInfo.lastName}`;
+			state.user.firstName = userInfo.firstName;
+			state.user.lastName = userInfo.lastName;
+			state.user.isLoggedIn = true;
 		},
 		GET_USER_STEP_GOALS(state, stepGoals){
 			state.userGoalsData.stepGoals = stepGoals;
@@ -203,7 +219,6 @@ export const store = new Vuex.Store({
 			context.commit('CHANGE_HEART_GOAL', newGoal);
 		},
 
-
   		async getStepCountData(context){
             const stepCount = await API.get('StepCountCRUD', `/StepCount/${context.state.user.username}`);
 			context.commit('GET_STEP_COUNT', stepCount[0]);
@@ -212,10 +227,10 @@ export const store = new Vuex.Store({
             const heartRate = await API.get('HeartRateCRUD', `/HeartRate/${context.state.user.username}`);
             context.commit('GET_HEART_RATE', heartRate[0]);
         },
-		async getUserInfo(context){
-			const userInfo = await API.get('UserInfoCRUD', `/UserInfo/${context.state.user.username}`);
-			console.log(userInfo[0]);
-			context.commit('GET_USER_INFO', userInfo[0]);
+		async getUserInfo(context, userId){
+			const id = userId ? userId : context.state.user.userId
+			const userInfo = await API.get('esperto-app', `/userInfo/${id}`);
+			context.commit('GET_USER_INFO', userInfo);
 		},
 		async getStepCountGoals(context){
 			const stepCountGoals = await API.get('StepCountGoalsCRUD', `/StepCountGoals/${context.state.user.username}`);
@@ -233,27 +248,26 @@ export const store = new Vuex.Store({
 							context.commit('NEW_PASS_REQUIRED', res);
 						}
 						else{
-							context.dispatch('fetchUserAccount', loginAttempt.username);
+							context.dispatch('getUserInfo', res.username);
 						}
 					});
 			} catch (e) {
 				alert(e.message);
 			}
 		},
-		async fetchUserAccount(context, username){
-			const accountInfo = await API.get('AccountsCRUD', `/Accounts/${username}`);
-			context.commit('LOGIN_SUCCESS', accountInfo[0]);
-		},
+
+		//need to update to use cognito
 		async signUp(context, signUpData){
             //todo: once server changes are made to make signup more secure, need to update this action
             await API.post('AccountsCRUD', '/Accounts', signUpData);
             context.commit('LOGIN_SUCCESS', signUpData);
 		},
+
 		async checkAuthentication(context){
 			await Auth.currentUserInfo()
 					.then(function(res){
 						if(res){
-							context.dispatch('fetchUserAccount', res.username)
+							context.dispatch('getUserInfo', res.username)
 						}
 						else{
 							console.log('No user signed in');
@@ -263,7 +277,7 @@ export const store = new Vuex.Store({
 		async resetPassword(context, payload){
 			await Auth.completeNewPassword(payload.cognitoUser, payload.password, {email: payload.email})
 				.then(function(res){
-					context.dispatch('fetchUserAccount', payload.cognitoUser.username);
+					context.dispatch('getUserInfo', payload.cognitoUser.username);
 				});
 		},
 		async logout(context){

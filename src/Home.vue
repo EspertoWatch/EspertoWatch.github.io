@@ -81,7 +81,6 @@ export default {
       ...mapActions([
           'getStepCountData',
           'getHeartRateData',
-          'getUserInfo',
           'getStepCountGoals',
           'getHeartRateGoals'
       ])
@@ -89,7 +88,6 @@ export default {
   mounted: function () {
       this.getStepCountData();
       this.getHeartRateData();
-      this.getUserInfo();
       this.getStepCountGoals();
       this.getHeartRateGoals();
   },
