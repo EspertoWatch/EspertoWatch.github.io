@@ -45,15 +45,15 @@ export default {
     VueCircle
   },
   computed: {
-    //note these are kinda useless for now but will change 
+    //todo: remove hardcoded vals 
     dayHR(){
-       return this.$store.state.heartRateData.dailyHR.slice(0, 1);
+       return [this.$store.state.heartRateData.currentHR];
     },
     weekHR(){
-       return this.$store.state.heartRateData.dailyHR.slice(0, 7);
+       return [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
     },
     monthHR(){
-       return this.$store.state.heartRateData.dailyHR.slice(0, 30);
+       return [60, 77, 74, 70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
     }
   },
   methods: {

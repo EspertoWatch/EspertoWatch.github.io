@@ -36,24 +36,8 @@ Vue.use(Vuex);
 //for now the store has fake data but it'll change
 export const store = new Vuex.Store({
 	state: {
-		heartRateData: {
-            current: '',
-            dailyHR: [],
-            //below this line is fake data (not coming from api)
-			today: 80,
-			yesterday: 78,
-			thisWeek: 81,
-			lastWeek: 82,
-			thisMonth: 80,
-			lastMonth: 77,
-			thisYear: 76,
-			unit: "BPM"
-		},
-		stepCountData: {
-			current: '',
-			dailySteps: [],
-			unit: "Steps"
-		},
+		heartRateData: {},
+		stepCountData: {},
 		device: {
 			name: "Esperto Watch",
 			version: "1.0",
@@ -79,39 +63,29 @@ export const store = new Vuex.Store({
 	},
 	getters: {
 		getHomeCardStepData: state => {
-			//todo: fix sketchy logic once we better define step count db schema
-			const today = state.stepCountData.current;
-			const yesterday = state.stepCountData.dailySteps[1];
-			const weekStepsArray = state.stepCountData.dailySteps.slice(0, 7);
-			const thisWeek = Math.round(weekStepsArray.reduce((a,b) => a + b, 0) / weekStepsArray.length, 0);
-			const lastWeekStepsArray = state.stepCountData.dailySteps.slice(7, 14);
-			const lastWeek = Math.round(lastWeekStepsArray.reduce((a,b) => a + b, 0) / lastWeekStepsArray.length, 0);
+			//todo: remove hardcoded vals
+			const today = state.stepCountData.currentSteps;
+			const yesterday = 12000;
+			const thisWeek = 13000;
+			const lastWeek = 12000;
 
-			const thisMonthStepsArray = state.stepCountData.dailySteps.slice(0, 30);
-			const thisMonth = Math.round(thisMonthStepsArray.reduce((a,b) => a + b, 0) / thisMonthStepsArray.length, 0);
-			const lastMonthStepsArray = state.stepCountData.dailySteps.slice(30, 60);
-            const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
+			const thisMonth = 13000;
+            const lastMonth = 12000;
 			return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.stepCountData.unit};
 		},
         getHomeCardHeartRateData: state => {
-            //todo: fix sketchy logic once we better define heart rate db schema
-            const today = state.heartRateData.current;
-            const yesterday = state.heartRateData.dailyHR[1];
-            const weekStepsArray = state.heartRateData.dailyHR.slice(0, 7);
-            const thisWeek = Math.round(weekStepsArray.reduce((a,b) => a + b, 0) / weekStepsArray.length, 0);
-            const lastWeekStepsArray = state.heartRateData.dailyHR.slice(7, 14);
-            const lastWeek = Math.round(lastWeekStepsArray.reduce((a,b) => a + b, 0) / lastWeekStepsArray.length, 0);
+            //todo: remove hardcoded vals
+            const today = state.heartRateData.currentHR;
+            const yesterday = 85;
+			const thisWeek = 90;
+			const lastWeek = 85;
 
-            const thisMonthStepsArray = state.heartRateData.dailyHR.slice(0, 30);
-            const thisMonth = Math.round(thisMonthStepsArray.reduce((a,b) => a + b, 0) / thisMonthStepsArray.length, 0);
-            const lastMonthStepsArray = state.heartRateData.dailyHR.slice(30, 60);
-            const lastMonth = Math.round(lastMonthStepsArray.reduce((a,b) => a + b, 0) / lastMonthStepsArray.length, 0);
+			const thisMonth = 80;
+            const lastMonth = 85;
             return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
         },
 		stepGoalProgress: state => {
-			const currentSteps = state.stepCountData.current;
-			const stepCountGoal = state.userGoalsData.stepGoals.currentGoal;
-			return (currentSteps/stepCountGoal)*100;
+			return (state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100;
 		}
 	},
 	mutations: {
@@ -143,12 +117,12 @@ export const store = new Vuex.Store({
 			state.userGoalsData.heartRateGoals.currentGoal = newGoal;
 		},
         GET_STEP_COUNT(state, stepCount){
-            state.stepCountData.current = stepCount.current;
-            state.stepCountData.dailySteps = stepCount.dailySteps.values;
+            state.stepCountData = stepCount;
+			state.stepCountData.unit = "Steps";
         },
         GET_HEART_RATE(state, heartRate){
-            state.heartRateData.current = heartRate.current;
-            state.heartRateData.dailyHR = heartRate.dailyHR.values;
+            state.heartRateData = heartRate;
+			state.heartRateData.unit = "BPM";
         },
 		LOGOUT_SUCCESS(state){
 			//reset to default state upon logout
@@ -215,20 +189,26 @@ export const store = new Vuex.Store({
 		//still need to add api calls here
 		//right now newGoal just contains new int to be set as currentGoal
 		//eventually will need to be an object with isAutoset and currentGoal
-		changeStepGoal(context, newGoal){
+		async changeStepGoal(context, newGoal){
+			const goalObj = Object.assign({}, context.state.userGoalsData.stepGoals);
+			goalObj.currentGoal = newGoal;
+			const res = await API.post('esperto-app', '/stepCountGoals', {body: goalObj});
 			context.commit('CHANGE_STEP_GOAL', newGoal);
 		},
-		changeHeartGoal(context, newGoal){
+		async changeHeartGoal(context, newGoal){
+			const goalObj = Object.assign({}, context.state.userGoalsData.heartRateGoals);
+			goalObj.currentGoal = newGoal;
+			const res = await API.post('esperto-app', '/heartRateGoals', {body: goalObj})
 			context.commit('CHANGE_HEART_GOAL', newGoal);
 		},
 
   		async getStepCountData(context){
-            const stepCount = await API.get('StepCountCRUD', `/StepCount/${context.state.user.username}`);
-			context.commit('GET_STEP_COUNT', stepCount[0]);
+            const stepCount = await API.get('esperto-app', `/stepCount/${context.state.user.userId}`);
+			context.commit('GET_STEP_COUNT', stepCount);
 		},
         async getHeartRateData(context){
-            const heartRate = await API.get('HeartRateCRUD', `/HeartRate/${context.state.user.username}`);
-            context.commit('GET_HEART_RATE', heartRate[0]);
+            const heartRate = await API.get('esperto-app', `/heartRate/${context.state.user.userId}`);
+            context.commit('GET_HEART_RATE', heartRate);
         },
 		async getUserInfo(context, userId){
 			const id = userId ? userId : context.state.user.userId
@@ -236,12 +216,12 @@ export const store = new Vuex.Store({
 			context.commit('GET_USER_INFO', userInfo);
 		},
 		async getStepCountGoals(context){
-			const stepCountGoals = await API.get('StepCountGoalsCRUD', `/StepCountGoals/${context.state.user.username}`);
-			context.commit('GET_USER_STEP_GOALS', stepCountGoals[0]);
+			const stepCountGoals = await API.get('esperto-app', `/stepCountGoals/${context.state.user.userId}`);
+			context.commit('GET_USER_STEP_GOALS', stepCountGoals);
 		},
 		async getHeartRateGoals(context){
-			const heartRateGoals = await API.get('HeartRateGoalsCRUD', `/HeartRateGoals/${context.state.user.username}`);
-			context.commit('GET_USER_HEART_GOALS', heartRateGoals[0]);
+			const heartRateGoals = await API.get('esperto-app', `/heartRateGoals/${context.state.user.userId}`);
+			context.commit('GET_USER_HEART_GOALS', heartRateGoals);
 		},
 		async login(context, loginAttempt){
 			try {

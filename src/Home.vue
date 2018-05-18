@@ -32,6 +32,7 @@ export default {
       msg: 'Home Section'
     }
   },
+  //todo: remove hardcoded vals
   computed: {
     device(){
       return this.$store.state.device;
@@ -40,10 +41,10 @@ export default {
       return this.$store.state.user;
     },
     dailyHR(){
-        return this.$store.state.heartRateData.dailyHR.slice(0, 7);
+        return [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
     },
     dailySteps(){
-        return this.$store.state.stepCountData.dailySteps.slice(0, 7);
+        return [10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
     },
     ...mapGetters([
         'getHomeCardStepData',

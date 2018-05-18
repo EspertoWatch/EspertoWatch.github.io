@@ -36,17 +36,18 @@ export default {
     ChartSelector
   },
   computed: {
+    //todo: stop using hardcoded vals
     ...mapGetters([
         'stepGoalProgress'
     ]),
     daySteps(){
-       return this.$store.state.stepCountData.dailySteps.slice(0, 1);
+       return [this.$store.state.stepCountData.currentSteps];
     },
     weekSteps(){
-       return this.$store.state.stepCountData.dailySteps.slice(0, 7);
+       return [10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
     },
     monthSteps(){
-       return this.$store.state.stepCountData.dailySteps.slice(0, 30);
+       return  [4500, 5500, 10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
     }
   },
   methods: {
