@@ -241,11 +241,14 @@ export const store = new Vuex.Store({
 
 		//need to update to use cognito
 		async signUp(context, signUpData){
-            //todo: once server changes are made to make signup more secure, need to update this action
-            await API.post('AccountsCRUD', '/Accounts', signUpData);
-            context.commit('LOGIN_SUCCESS', signUpData);
+			try{
+				await Auth.signUp({username: signUpData.username, password: signUpData.password}).then(function(res){
+					console.log(res);
+				});
+			} catch(e){
+				alert(e.message);
+			}
 		},
-
 		async checkAuthentication(context){
 			await Auth.currentUserInfo()
 					.then(function(res){

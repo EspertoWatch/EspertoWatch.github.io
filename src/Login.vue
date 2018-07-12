@@ -26,7 +26,7 @@
                         <v-flex xs9>
                             <v-text-field
                                     v-model="signUpInfo.username"
-                                    label="Username"
+                                    label="Email"
                                     ref="loginUsernameField"
                             />
                         </v-flex>
