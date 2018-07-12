@@ -60,6 +60,23 @@
                     </v-flex>
                 </v-layout>
             </div>
+            <div v-else-if="isConfirming">
+                <v-container>
+                    <v-layout row justify-center>
+                        <v-flex xs9>
+                           <v-text-field
+                                    v-model="confirmationCode"
+                                    label="Confirmation Code"
+                            />
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+                <v-layout row justify-center>
+                    <v-flex xs9>
+                        <v-btn @click="clickConfirmSignUp" round block color="primary" dark>Get Started</v-btn>
+                    </v-flex>
+                </v-layout>
+            </div>
             <div v-else-if="mustChangePass">
                 <v-container>
                     <v-layout row justify-center>
@@ -144,6 +161,7 @@
             return {
                 cardHeight: '400px',
                 isSigningUp: false,
+                isConfirming: false,
                 visible1: false,
                 visible2: false,
                 visible3: false,
@@ -162,7 +180,8 @@
                 passwordConfirm: '',
                 newPassword: '',
                 newPasswordConfirm: '',
-                confirmEmail: ''
+                confirmEmail: '',
+                confirmationCode: '',
             }
         },
         computed: {
@@ -178,10 +197,16 @@
                 this.isSigningUp = true;
                 this.cardHeight = '600px';
             },
+            triggerConfirmSignUpMode(){
+                this.isSigningUp = false;
+                this.isConfirming = true;
+                this.cardHeight = '400px';
+            },
             ...mapActions([
                 'login',
                 'signUp',
-                'resetPassword'
+                'resetPassword',
+                'confirmSignUp'
             ]),
             clickLogin(){
                 this.login(this.loginInfo);
@@ -189,6 +214,7 @@
             clickSignUp(){
                 //todo: add validation logic
                 this.signUp(this.signUpInfo);
+                this.triggerConfirmSignUpMode();
             },
             clickResetPass(){
                 if(this.newPassword = this.newPasswordConfirm){
@@ -198,6 +224,9 @@
                 else{
                     alert('Passwords do not match');
                 }
+            },
+            clickConfirmSignUp(){
+                this.confirmSignUp(this.confirmationCode);
             }
         },
     }

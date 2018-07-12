@@ -52,6 +52,7 @@ export const store = new Vuex.Store({
 			image: "",
 		},
 		user: {},
+		signUpInfo: {},
 		loginStatus: {
 			isLoggedIn: false,
 			mustChangePass: false,
@@ -144,6 +145,9 @@ export const store = new Vuex.Store({
 		NEW_PASS_REQUIRED(state, cognitoUser){
 			state.cognitoUser = cognitoUser;
 			state.loginStatus.mustChangePass = true;
+		},
+		STORE_SIGN_UP_INFO(state, signUpInfo){
+			state.signUpInfo = signUpInfo;
 		}
 	},
 	actions: {
@@ -215,6 +219,10 @@ export const store = new Vuex.Store({
 			const userInfo = await API.get('esperto-app', `/userInfo/${id}`);
 			context.commit('GET_USER_INFO', userInfo);
 		},
+		async postUserInfo(context, userObj){
+			const res = await API.post('esperto-app', '/userInfo', {body: userObj});
+			context.commit('GET_USER_INFO', userObj);
+		},
 		async getStepCountGoals(context){
 			const stepCountGoals = await API.get('esperto-app', `/stepCountGoals/${context.state.user.userId}`);
 			context.commit('GET_USER_STEP_GOALS', stepCountGoals);
@@ -243,9 +251,26 @@ export const store = new Vuex.Store({
 		async signUp(context, signUpData){
 			try{
 				await Auth.signUp({username: signUpData.username, password: signUpData.password}).then(function(res){
-					console.log(res);
+					const signUpInfo = Object.assign({}, signUpData);
+					debugger;
+					signUpInfo.userId = res.userSub
+					context.commit('STORE_SIGN_UP_INFO', signUpInfo);
 				});
 			} catch(e){
+				alert(e.message);
+			}
+		},
+		async confirmSignUp(context, confirmationCode){
+			try {
+				await Auth.confirmSignUp(context.state.signUpInfo.username, confirmationCode).then(function(res){
+					const userInfo = {
+						"name": context.state.signUpInfo.firstName + " " + context.state.signUpInfo.lastName,
+						"userId": context.state.signUpInfo.userId
+					};
+					context.dispatch('postUserInfo', userInfo);
+				})
+				//await Auth.signIn(this.state.email, this.state.password);
+			} catch (e) {
 				alert(e.message);
 			}
 		},
