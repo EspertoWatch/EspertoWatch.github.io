@@ -5,7 +5,7 @@
       <v-card width="80vw">
         <ChartSelector 
           :dayData="getTodayHR"
-          :weekData="weekHR"
+          :weekData="getWeekHR"
           graph-type="Line"
           time-period="Today"
           includes="Goal Line"
@@ -29,12 +29,9 @@ export default {
     VueCircle
   },
   computed: {
-    //todo: remove hardcoded vals 
-    weekHR(){
-       return [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
-    },
     ...mapGetters([
-        'getTodayHR'
+        'getTodayHR',
+        'getWeekHR'
     ])
   },
   methods: {

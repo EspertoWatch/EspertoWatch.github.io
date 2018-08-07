@@ -42,7 +42,6 @@ export default {
     ChartSelector
   },
   computed: {
-    //todo: stop using hardcoded vals
     currentSteps(){
        return this.$store.state.stepCountData.currentSteps;
     },

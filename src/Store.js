@@ -37,7 +37,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		heartRateData: {
-			avgHourlyHR: {}
+			avgHourlyHR: {},
+			avgDailyHR: {}
 		},
 		stepCountData: {
 			totalDailySteps: {}
@@ -104,11 +105,20 @@ export const store = new Vuex.Store({
 		getTodayHR: state => {
 			let todayHR = [state.heartRateData.currentHR];
 			for(let i = 0; i < 24; i ++){
-				const key = i < 10 ? moment().format("YYYY-MM-DD") + " 0" + i.toString() : moment().subtract(i, 'day').format("YYYY-MM-DD") + " " + i.toString();
+				const key = i < 10 ? moment().format("YYYY-MM-DD") + " 0" + i.toString() : moment().format("YYYY-MM-DD") + " " + i.toString();
 				const hrVal = state.heartRateData.avgHourlyHR[key] ? state.heartRateData.avgHourlyHR[key] : 0;
 				todayHR.push(hrVal);
 			}
 			return todayHR;
+		},
+		getWeekHR: state => {
+			let weekHR = [];
+			for(let i = 0; i < 6; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				const hrVal = state.heartRateData.avgDailyHR[date] ? state.heartRateData.avgDailyHR[date] : 0;
+				weekHR.unshift(hrVal);
+			}
+			return weekHR;
 		}
 	},
 	mutations: {
@@ -145,7 +155,25 @@ export const store = new Vuex.Store({
         },
         GET_HEART_RATE(state, heartRate){
             state.heartRateData = heartRate;
+			heartRate.avgHourlyHR;
 			state.heartRateData.unit = "BPM";
+
+			let avgDailyHR = {};
+			for(let i = 0; i < 6; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				let sum = 0;
+				let numVals = 0;
+				for(let j = 0; j < 24; j++){
+					const key = j < 10 ? date + " 0" + j.toString() : date + " " + j.toString();
+					if(heartRate.avgHourlyHR[key]){
+						sum = sum + heartRate.avgHourlyHR[key];
+						numVals = numVals + 1;
+					}
+				}
+				avgDailyHR[date] = sum === 0 ? 0 : sum/numVals;
+			}
+
+			state.heartRateData.avgDailyHR = avgDailyHR;
         },
 		LOGOUT_SUCCESS(state){
 			//reset to default state upon logout
