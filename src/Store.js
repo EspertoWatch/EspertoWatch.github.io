@@ -81,18 +81,21 @@ export const store = new Vuex.Store({
 			let tabData = [
 				{
 					title: "Today",
-					mainValue: `${today} ${unit}`,
-					lastInterval: `${today - yesterday} ${unit}`,
+					mainValue: today,
+					lastInterval: today - yesterday,
+					unit: unit
 				},
 				{
 					title: "This Week",
-					mainValue: `${thisWeek} ${unit}`,
-					lastInterval: `${thisWeek - lastWeek} ${unit}`,
+					mainValue: thisWeek,
+					lastInterval: thisWeek - lastWeek,
+					unit: unit
 				},
 				{
 					title: "This Month",
-					mainValue: `${thisMonth} ${unit}`,
-					lastInterval: `${thisMonth - lastMonth} ${unit}`,
+					mainValue: thisMonth,
+					lastInterval: thisMonth - lastMonth,
+					unit: unit
 				},
 			];
 			return tabData;
@@ -112,18 +115,21 @@ export const store = new Vuex.Store({
 			let tabData = [
 				{
 					title: "Current",
-					mainValue: `${current} ${unit}`,
-					lastInterval: `${current - lastHR} ${unit}`,
+					mainValue: current,
+					lastInterval: current - lastHR,
+					unit: unit
 				},
 				{
 					title: "Today",
-					mainValue: `${today} ${unit}`,
-					lastInterval: `${today - yesterday} ${unit}`,
+					mainValue: today,
+					lastInterval: today - yesterday,
+					unit: unit
 				},
 				{
 					title: "This Week",
-					mainValue: `${thisWeek} ${unit}`,
-					lastInterval: `${thisWeek - lastWeek} ${unit}`,
+					mainValue: thisWeek,
+					lastInterval: thisWeek - lastWeek,
+					unit: unit
 				},
 			];
 			return tabData;

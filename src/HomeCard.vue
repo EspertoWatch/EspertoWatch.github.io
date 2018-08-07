@@ -33,13 +33,19 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="tab in tabs" :key="tab.title" :id="'tab-' + tab.title">
             <div class="main-value-container">
-              <p class="main-value">{{tab.mainValue}}</p>
+              <p class="main-value">{{tab.mainValue + " " + tab.unit}}</p>
             </div>
             <div class="divider-container">
-              <v-layout row justify-space-around style="margin-bottom: 10px">
-                <v-flex xs10>
-                  <p class="sub-text"> {{tab | getIntervalString}}</p>
+              <v-layout row justify-center style="margin-bottom: 10px">
+                <v-flex xs1>
+                  <div v-if="showUpIcon(tab)">
+                    <v-icon large color="green darken-2">arrow_drop_up</v-icon>
+                  </div>
+                  <div v-else>
+                    <v-icon large color="red darken-2">arrow_drop_down</v-icon>
+                  </div>
                 </v-flex>
+                <p class="sub-text"> {{tab | getIntervalString}}</p>
               </v-layout>
             </div>
         </v-tab-item>
@@ -117,23 +123,29 @@ export default {
       this.chartModal = true;
     },
     getLabels(){
-        const n = this.chartData.length; 
-        return Array.from(Array(n).keys());
-      }
+      const n = this.chartData.length; 
+      return Array.from(Array(n).keys());
+    },
+    showUpIcon(item){
+      debugger;
+      return item.lastInterval > 0;
+    }
   },
   filters:{
     getIntervalString(item){
+      const lastInt = Math.abs(item.lastInterval);
+      const unit = item.unit;
       if(item.title === "Today"){
-        return item.lastInterval + " from yesterday.";
+        return lastInt + " " + unit + " from yesterday.";
       }
       else if(item.title === "This Week"){
-        return item.lastInterval + " from last week."
+        return lastInt + " " + unit + " from last week."
       }
       else if(item.title === "This Month"){
-        return item.lastInterval + " from last month."
+        return lastInt + " " + unit + " from last month."
       }
       else if(item.title === "Current"){
-        return item.lastInterval + " from last hour."
+        return lastInt + " " + unit + " from last hour."
       }
     }
   },
