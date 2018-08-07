@@ -2,33 +2,18 @@
   <div id="heartRate">
     <h1> My Heart Rate Data </h1>
     <v-layout row justify-space-around>
-      <v-card width="45vw">
+      <v-card width="80vw">
         <ChartSelector 
           :dayData="dayHR"
           :weekData="weekHR"
           :monthData="monthHR"
-          graph-type="Bar"
+          graph-type="Line"
           time-period="Today"
           includes="Goal Line"
           :graph-type-choices="['Bar', 'Line']"
           :time-period-choices="['Today', 'This Week', 'This Month']"
+          chartColor='#f87979'
         />
-      </v-card>
-      <v-card width="45vw">
-        <div style="margin-top: 15px;">
-          <vue-circle
-          :progress="50"
-          :size="300"
-          :reverse=false
-          line-cap="round"
-          :animation=false
-          :fill="{gradient: ['red', 'yellow', 'green', 'yellow', 'red']}"
-          empty-fill="rgba(0, 0, 0, 0)"
-          insert-mode="append"
-          :thickness="15"
-          :show-percent=false>
-        </vue-circle>
-        </div>
       </v-card>
     </v-layout>
   </div>

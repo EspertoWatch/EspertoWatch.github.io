@@ -143,11 +143,13 @@
                         <v-btn @click="clickLogin" round block color="primary" dark>Login</v-btn>
                     </v-flex>
                 </v-layout>
-                <v-layout row justify-center>
-                    <v-flex xs9>
-                        <v-btn @click="triggerSignUpMode" round block color="primary" dark>Sign Up</v-btn>
-                    </v-flex>
-                </v-layout>
+                <div v-if="hidetemp">
+                    <v-layout row justify-center>
+                        <v-flex xs9>
+                            <v-btn @click="triggerSignUpMode" round block color="primary" dark>Sign Up</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </div>
             </div>
         </v-card>
     </v-layout>
@@ -159,7 +161,7 @@
         name: "login",
         data () {
             return {
-                cardHeight: '400px',
+                cardHeight: '350px',
                 isSigningUp: false,
                 isConfirming: false,
                 visible1: false,
@@ -200,7 +202,7 @@
             triggerConfirmSignUpMode(){
                 this.isSigningUp = false;
                 this.isConfirming = true;
-                this.cardHeight = '400px';
+                this.cardHeight = '350px';
             },
             ...mapActions([
                 'login',

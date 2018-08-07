@@ -86,7 +86,7 @@ export const store = new Vuex.Store({
             return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
         },
 		stepGoalProgress: state => {
-			return (state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100;
+			return Math.round((state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100, 1);
 		}
 	},
 	mutations: {

@@ -2,7 +2,7 @@
   <div id="stepCount">
     <h1> My Step Count Details </h1>
     <v-layout row justify-space-around>
-      <v-card width="45vw">
+      <v-card width="80vw" style="padding-right=10px; padding-left=10px;">
         <ChartSelector 
           :dayData="daySteps"
           :weekData="weekSteps"
@@ -12,14 +12,21 @@
           includes="Goal Line"
           :graph-type-choices="['Bar', 'Line']"
           :time-period-choices="['Today', 'This Week', 'This Month']"
+          chartColor="#0000FF"
         />
       </v-card>
-      <v-card width="45vw">
-        <div style="margin-top: 30px;">
-          <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
-          <p class="main-value">{{daySteps[0]}}/{{Math.round(daySteps[0]*100/stepGoalProgress, 0)}}</p>
-          <p class="desc-text">You've achieved {{stepGoalProgress}}% of your daily step goal, keep up the good work!</p>
-        </div>
+    </v-layout>
+    <v-layout row justify-space-around style="margin-top: 30px">
+      <v-card width="80vw">
+        <v-layout row justify-space-around style="margin-top: 30px;">
+          <v-flex xs6>
+            <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
+            <p class="main-value">{{daySteps[0]}}/{{Math.round(daySteps[0]*100/stepGoalProgress, 0)}}</p>
+          </v-flex>
+          <v-flex xs6 style="display: flex; flex-direction: column; justify-content: center;">
+            <p class="desc-text">You've achieved {{stepGoalProgress}}% of your daily step goal, keep up the good work!</p>
+          </v-flex>
+        </v-layout>
       </v-card>
     </v-layout>
   </div>
@@ -98,7 +105,7 @@ a {
 }
 
 .desc-text{
-  font-size: 1.8rem !important;
+  font-size: 2.0rem !important;
   margin-left: 10px;
   margin-right: 10px;
 }

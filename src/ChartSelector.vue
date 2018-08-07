@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-left: 20px; margin-right: 20px;">
         <BarChart v-if="graphType === 'Bar'" :height="175" :data="chartData" :options="chartOptions" class="chart"></BarChart>
         <LineChart v-else-if="graphType ==='Line'" :height="175" :data="chartData" :options="chartOptions" class="chart"></LineChart>
         <v-layout row wrap>
@@ -38,7 +38,8 @@ export default {
       timePeriodChoices: Array,
       dayData: Array,
       weekData: Array,
-      monthData: Array
+      monthData: Array,
+      chartColor: String
   },
   computed: {
     chartOptions(){
@@ -63,7 +64,7 @@ export default {
           datasets: [
               {
                   label: 'Fake label',
-                  backgroundColor: '#f87979',
+                  backgroundColor: this.chartColor,
                   data: this.getData()
               }
           ]
