@@ -36,12 +36,9 @@
               <p class="main-value">{{tab.mainValue}}</p>
             </div>
             <div class="divider-container">
-              <v-layout row justify-space-between style="margin-bottom: 10px">
-                <v-flex xs6 style="border-right: solid 1px #d3d3d3">
+              <v-layout row justify-space-around style="margin-bottom: 10px">
+                <v-flex xs10>
                   <p class="sub-text"> {{tab | getIntervalString}}</p>
-                </v-flex>
-                <v-flex xs6>
-                  <p class="sub-text"> {{tab | getAvgString}}</p>
                 </v-flex>
               </v-layout>
             </div>
@@ -126,25 +123,17 @@ export default {
   },
   filters:{
     getIntervalString(item){
-      if(item.title === "Daily"){
+      if(item.title === "Today"){
         return item.lastInterval + " from yesterday.";
       }
-      else if(item.title === "Weekly"){
+      else if(item.title === "This Week"){
         return item.lastInterval + " from last week."
       }
-      else if(item.title === "Monthly"){
+      else if(item.title === "This Month"){
         return item.lastInterval + " from last month."
       }
-    },
-    getAvgString(item){
-      if(item.title === "Daily"){
-        return item.currentAvg + " from this week's average.";
-      }
-      else if(item.title === "Weekly"){
-        return item.currentAvg + " from this month's average."
-      }
-      else if(item.title === "Monthly"){
-        return item.currentAvg + " from this year's average."
+      else if(item.title === "Current"){
+        return item.lastInterval + " from last hour."
       }
     }
   },
@@ -196,7 +185,7 @@ export default {
     line-height: 150px;
   }
   .sub-text{
-    font-size: 1.2rem !important;
+    font-size: 1.5rem !important;
     margin-right: 10px;
     margin-left: 10px;
   }

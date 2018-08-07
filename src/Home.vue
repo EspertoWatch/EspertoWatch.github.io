@@ -11,10 +11,10 @@
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="getMonthSteps.slice(Math.max(getMonthSteps.length - 7, 0))" chartTitle="This Week's Step Count" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount" chartColor='#0000FF'></HomeCard>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="getMonthSteps.slice(Math.max(getMonthSteps.length - 7, 0))" chartTitle="This Week's Step Count" title="My Step Count" v-bind:tabs="getHomeCardStepData" link="StepCount" chartColor='#0000FF'></HomeCard>
       </v-flex>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="getTodayHR" chartTitle="Today's Heart Rate" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate" chartColor='#f87979'></HomeCard>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="getTodayHR" chartTitle="Today's Heart Rate" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData" link="HeartRate" chartColor='#f87979'></HomeCard>
       </v-flex>
     </v-layout>
   </div>
@@ -48,28 +48,6 @@ export default {
     ])
   },
   filters: {
-    getTabs(data){
-      return [
-        {
-          title: "Daily",
-          mainValue: `${data.today} ${data.unit}`,
-          lastInterval: `${data.today - data.yesterday} ${data.unit}`,
-          currentAvg: `${data.today - data.thisWeek} ${data.unit}`
-        },
-        {
-          title: "Weekly",
-          mainValue: `${data.thisWeek} ${data.unit}`,
-          lastInterval: `${data.thisWeek - data.lastWeek} ${data.unit}`,
-          currentAvg: `${data.thisWeek - data.thisMonth} ${data.unit}`
-        },
-        {
-          title: "Monthly",
-          mainValue: `${data.thisMonth} ${data.unit}`,
-          lastInterval: `${data.thisMonth - data.lastMonth} ${data.unit}`,
-          currentAvg: `${data.thisMonth - data.thisYear} ${data.unit}`
-        },
-      ];
-    },
     timestampToDate(date){
       return moment.unix(date).format('MMMM Do YYYY, h:mm:ss a')
     }

@@ -77,18 +77,56 @@ export const store = new Vuex.Store({
 
 			const thisMonth = 13000;
             const lastMonth = 12000;
-			return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.stepCountData.unit};
+			const unit = state.stepCountData.unit;
+			let tabData = [
+				{
+					title: "Today",
+					mainValue: `${today} ${unit}`,
+					lastInterval: `${today - yesterday} ${unit}`,
+				},
+				{
+					title: "This Week",
+					mainValue: `${thisWeek} ${unit}`,
+					lastInterval: `${thisWeek - lastWeek} ${unit}`,
+				},
+				{
+					title: "This Month",
+					mainValue: `${thisMonth} ${unit}`,
+					lastInterval: `${thisMonth - lastMonth} ${unit}`,
+				},
+			];
+			return tabData;
 		},
         getHomeCardHeartRateData: state => {
             //todo: remove hardcoded vals
-            const today = state.heartRateData.currentHR;
+            const current = state.heartRateData.currentHR;
+			const lastHR = 56;
+			const today = 90;
             const yesterday = 85;
 			const thisWeek = 90;
 			const lastWeek = 85;
 
 			const thisMonth = 80;
             const lastMonth = 85;
-            return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
+			const unit = state.heartRateData.unit;
+			let tabData = [
+				{
+					title: "Current",
+					mainValue: `${current} ${unit}`,
+					lastInterval: `${current - lastHR} ${unit}`,
+				},
+				{
+					title: "Today",
+					mainValue: `${today} ${unit}`,
+					lastInterval: `${today - yesterday} ${unit}`,
+				},
+				{
+					title: "This Week",
+					mainValue: `${thisWeek} ${unit}`,
+					lastInterval: `${thisWeek - lastWeek} ${unit}`,
+				},
+			];
+			return tabData;
         },
 		stepGoalProgress: state => {
 			return Math.round((state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100, 2);
