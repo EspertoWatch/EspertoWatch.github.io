@@ -4,14 +4,13 @@
     <v-layout row justify-space-around>
       <v-card width="80vw">
         <ChartSelector 
-          :dayData="dayHR"
+          :dayData="getTodayHR"
           :weekData="weekHR"
-          :monthData="monthHR"
           graph-type="Line"
           time-period="Today"
           includes="Goal Line"
           :graph-type-choices="['Bar', 'Line']"
-          :time-period-choices="['Today', 'This Week', 'This Month']"
+          :time-period-choices="['Today', 'This Week']"
           chartColor='#f87979'
         />
       </v-card>
@@ -31,20 +30,17 @@ export default {
   },
   computed: {
     //todo: remove hardcoded vals 
-    dayHR(){
-       return [this.$store.state.heartRateData.currentHR];
-    },
     weekHR(){
        return [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
     },
-    monthHR(){
-       return [60, 77, 74, 70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
-    }
+    ...mapGetters([
+        'getTodayHR'
+    ])
   },
   methods: {
       ...mapActions([
           'getHeartRateData',
-          'getHeartRateGoals'
+          'getHeartRateGoals',
       ])
   },
   mounted: function () {

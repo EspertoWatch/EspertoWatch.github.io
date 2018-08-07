@@ -51,7 +51,7 @@
     <v-dialog v-model="calendarModal" max-width="400">
       <CalendarView></CalendarView>
     </v-dialog>
-    <v-dialog v-model="chartModal" max-width="400">
+    <v-dialog v-model="chartModal" max-width="500">
         <v-card style="padding-bottom: 50px;">
             <BarChart :data="chartMetaData" :options="chartOptions" class="chart"></BarChart>
         </v-card>
@@ -72,15 +72,17 @@ export default {
     tabs: Array,
     link: String,
     chartData: Array,
+    chartColor: String,
+    chartTitle: String
   },
   computed: {
       chartMetaData(){
           return {
-              labels: [1, 2, 3, 4, 5, 6, 7],
+              labels: this.getLabels(),
               datasets: [
                   {
                       label: this.title,
-                      backgroundColor: '#f87979',
+                      backgroundColor: this.chartColor,
                       data: this.chartData
                   }
               ]
@@ -90,7 +92,7 @@ export default {
           return{
               title: {
                   display: true,
-                  text: `${this.title} Over 7 Days`,
+                  text: this.chartTitle,
                   fontSize: 20
               },
               scales: {
@@ -116,7 +118,11 @@ export default {
     },
     showChartModal(){
       this.chartModal = true;
-    }
+    },
+    getLabels(){
+        const n = this.chartData.length; 
+        return Array.from(Array(n).keys());
+      }
   },
   filters:{
     getIntervalString(item){

@@ -36,7 +36,9 @@ Vue.use(Vuex);
 //for now the store has fake data but it'll change
 export const store = new Vuex.Store({
 	state: {
-		heartRateData: {},
+		heartRateData: {
+			avgHourlyHR: {}
+		},
 		stepCountData: {
 			totalDailySteps: {}
 		},
@@ -98,6 +100,15 @@ export const store = new Vuex.Store({
 				monthSteps.unshift(numSteps);
 			}
 			return monthSteps;
+		},
+		getTodayHR: state => {
+			let todayHR = [state.heartRateData.currentHR];
+			for(let i = 0; i < 24; i ++){
+				const key = i < 10 ? moment().format("YYYY-MM-DD") + " 0" + i.toString() : moment().subtract(i, 'day').format("YYYY-MM-DD") + " " + i.toString();
+				const hrVal = state.heartRateData.avgHourlyHR[key] ? state.heartRateData.avgHourlyHR[key] : 0;
+				todayHR.push(hrVal);
+			}
+			return todayHR;
 		}
 	},
 	mutations: {

@@ -11,10 +11,10 @@
     </v-layout>
     <v-layout row justify-space-around>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="dailySteps" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/step-nav.png" :chartData="getMonthSteps.slice(Math.max(getMonthSteps.length - 7, 0))" chartTitle="This Week's Step Count" title="My Step Count" v-bind:tabs="getHomeCardStepData | getTabs" link="StepCount" chartColor='#0000FF'></HomeCard>
       </v-flex>
       <v-flex xs5>
-        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="dailyHR" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate"></HomeCard>
+        <HomeCard icon-src="/assets/app-images/heart-nav.png" :chartData="getTodayHR" chartTitle="Today's Heart Rate" title="My Heart Rate" v-bind:tabs="getHomeCardHeartRateData | getTabs" link="HeartRate" chartColor='#f87979'></HomeCard>
       </v-flex>
     </v-layout>
   </div>
@@ -40,15 +40,11 @@ export default {
     user(){
       return this.$store.state.user;
     },
-    dailyHR(){
-        return [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR];
-    },
-    dailySteps(){
-        return [10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
-    },
     ...mapGetters([
         'getHomeCardStepData',
-        'getHomeCardHeartRateData'
+        'getHomeCardHeartRateData',
+        'getMonthSteps',
+        'getTodayHR'
     ])
   },
   filters: {
