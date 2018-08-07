@@ -98,7 +98,6 @@ export default {
       else{
         n = this.monthData.length;
       }
-      console.log(n);
       return Array.from(Array(n).keys());
     }
   }

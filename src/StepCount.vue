@@ -4,14 +4,13 @@
     <v-layout row justify-space-around>
       <v-card width="80vw" style="padding-right=10px; padding-left=10px;">
         <ChartSelector 
-          :dayData="daySteps"
-          :weekData="weekSteps"
-          :monthData="monthSteps"
+          :weekData="getMonthSteps.slice(Math.max(getMonthSteps.length - 7, 0))"
+          :monthData="getMonthSteps"
           graph-type="Bar"
-          time-period="Today"
+          time-period="This Week"
           includes="Goal Line"
           :graph-type-choices="['Bar', 'Line']"
-          :time-period-choices="['Today', 'This Week', 'This Month']"
+          :time-period-choices="['This Week', 'This Month']"
           chartColor="#0000FF"
         />
       </v-card>
@@ -21,7 +20,7 @@
         <v-layout row justify-space-around style="margin-top: 30px;">
           <v-flex xs6>
             <StepArchMeter :percentage1="stepGoalProgress | getPercentageForStep(20)" :percentage2="stepGoalProgress | getPercentageForStep(40)" :percentage3="stepGoalProgress | getPercentageForStep(60)" :percentage4="stepGoalProgress | getPercentageForStep(80)" :percentage5="stepGoalProgress | getPercentageForStep(100)" />
-            <p class="main-value">{{daySteps[0]}}/{{Math.round(daySteps[0]*100/stepGoalProgress, 0)}}</p>
+            <p class="main-value">{{currentSteps}}/{{stepGoal}}</p>
           </v-flex>
           <v-flex xs6 style="display: flex; flex-direction: column; justify-content: center;">
             <p class="desc-text">You've achieved {{stepGoalProgress}}% of your daily step goal, keep up the good work!</p>
@@ -44,18 +43,16 @@ export default {
   },
   computed: {
     //todo: stop using hardcoded vals
+    currentSteps(){
+       return this.$store.state.stepCountData.currentSteps;
+    },
+    stepGoal(){
+      return this.$store.state.userGoalsData.stepGoals.currentGoal;
+    },
     ...mapGetters([
-        'stepGoalProgress'
-    ]),
-    daySteps(){
-       return [this.$store.state.stepCountData.currentSteps];
-    },
-    weekSteps(){
-       return [10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
-    },
-    monthSteps(){
-       return  [4500, 5500, 10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps];
-    }
+        'stepGoalProgress',
+        'getMonthSteps'
+    ])
   },
   methods: {
       ...mapActions([

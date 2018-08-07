@@ -37,7 +37,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		heartRateData: {},
-		stepCountData: {},
+		stepCountData: {
+			totalDailySteps: {}
+		},
 		device: {
 			name: "Esperto Watch",
 			version: "1.0",
@@ -86,7 +88,16 @@ export const store = new Vuex.Store({
             return {today: today, yesterday: yesterday, thisWeek: thisWeek, lastWeek: lastWeek, thisMonth: thisMonth, lastMonth: lastMonth, unit: state.heartRateData.unit};
         },
 		stepGoalProgress: state => {
-			return Math.round((state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100, 1);
+			return Math.round((state.stepCountData.currentSteps/state.userGoalsData.stepGoals.currentGoal)*100, 2);
+		},
+		getMonthSteps: state => {
+			let monthSteps = [state.stepCountData.currentSteps];
+			for(let i = 1; i < 31; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				const numSteps = state.stepCountData.totalDailySteps[date] ? state.stepCountData.totalDailySteps[date] : 0;
+				monthSteps.unshift(numSteps);
+			}
+			return monthSteps;
 		}
 	},
 	mutations: {
