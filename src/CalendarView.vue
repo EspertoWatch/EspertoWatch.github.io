@@ -26,10 +26,10 @@ export default {
   //todo: remove hardcoded vals
   computed:{
   	heartRateData(){
-      return {data: [70, 80, 85, 69, 90, 99, this.$store.state.heartRateData.currentHR], unit: this.$store.state.heartRateData.unit};
+      return {data: this.$store.state.heartRateData.avgDailyHR, unit: this.$store.state.heartRateData.unit};
     },
     stepData(){
-      return {data: [10000, 11000, 12000, 13000, 14000, 9000, this.$store.state.stepCountData.currentSteps], unit: this.$store.state.stepCountData.unit};
+      return {data: this.$store.state.stepCountData.totalDailySteps, unit: this.$store.state.stepCountData.unit};
     },
   },
   data(){
@@ -39,8 +39,10 @@ export default {
   },
   filters: {
   	getDataText(date, data){
-  	  const daysFromToday = moment().diff(moment(date, 'YYYY-MM-DD'), 'days');
-  		return `${data.data[daysFromToday]} ${data.unit} on ${date}`;
+      if(data.data[date]){
+        return `${data.data[date]} ${data.unit} on ${date}`;
+      }
+  		return `No data for ${date}`;
   	}
   },
   methods: {
