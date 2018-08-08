@@ -71,11 +71,41 @@ export const store = new Vuex.Store({
 		getHomeCardStepData: state => {
 			//todo: remove hardcoded vals
 			const today = state.stepCountData.currentSteps;
-			const yesterday = 12000;
-			const thisWeek = 13000;
-			const lastWeek = 12000;
+			const yesterday = state.stepCountData.totalDailySteps[moment().subtract(1, 'day').format("YYYY-MM-DD")] ? Math.round(state.stepCountData.totalDailySteps[moment().subtract(1, 'day').format("YYYY-MM-DD")], 1) : 0;
 
-			const thisMonth = 13000;
+			let thisWkSum = state.stepCountData.currentSteps;
+			let thisWkCounter = 1;
+			for(let i = 1; i < 6; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				if(state.stepCountData.totalDailySteps[date]){
+					thisWkCounter++;
+					thisWkSum = thisWkSum + state.stepCountData.totalDailySteps[date];
+				}
+			}
+			const thisWeek = Math.round(thisWkSum/thisWkCounter, 1);
+
+			let lastWkSum = 0;
+			let lastWkCounter = 0;
+			for(let i = 6; i < 13; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				if(state.stepCountData.totalDailySteps[date]){
+					lastWkCounter++;
+					lastWkSum = lastWkSum + state.stepCountData.totalDailySteps[date];
+				}
+			}
+			const lastWeek = Math.round(lastWkSum/lastWkCounter, 1);
+
+			let thisMonthSum = state.stepCountData.currentSteps;
+			let thisMonthCounter = 1;
+			for(let i = 1; i < 30; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				if(state.stepCountData.totalDailySteps[date]){
+					thisMonthCounter++;
+					thisMonthSum = thisMonthSum + state.stepCountData.totalDailySteps[date];
+				}
+			}
+			const thisMonth = Math.round(thisMonthSum/thisMonthCounter, 1);
+
             const lastMonth = 12000;
 			const unit = state.stepCountData.unit;
 			let tabData = [
@@ -94,7 +124,7 @@ export const store = new Vuex.Store({
 				{
 					title: "This Month",
 					mainValue: thisMonth,
-					lastInterval: thisMonth - lastMonth,
+					totalValue: thisMonthSum,
 					unit: unit
 				},
 			];
@@ -102,15 +132,37 @@ export const store = new Vuex.Store({
 		},
         getHomeCardHeartRateData: state => {
             //todo: remove hardcoded vals
-            const current = state.heartRateData.currentHR;
-			const lastHR = 56;
-			const today = 90;
-            const yesterday = 85;
-			const thisWeek = 90;
-			const lastWeek = 85;
+            const current = Math.round(state.heartRateData.currentHR, 1);
 
-			const thisMonth = 80;
-            const lastMonth = 85;
+			const lastHrSuffix = moment().hour() > 11 ? (moment().hour() - 1).toString() : "0" + (moment().hour() - 1).toString();
+			const lastHR = state.heartRateData.avgDailyHR[moment().format("YYYY-MM-DD") + " " + lastHrSuffix] ? state.heartRateData.avgDailyHR[moment().format("YYYY-MM-DD") + " " + lastHrSuffix] : 0;
+
+			const today = state.heartRateData.avgDailyHR[moment().format("YYYY-MM-DD")] ? Math.round(state.heartRateData.avgDailyHR[moment().format("YYYY-MM-DD")], 1) : 0;
+            const yesterday = state.heartRateData.avgDailyHR[moment().subtract(1, 'day').format("YYYY-MM-DD")] ? Math.round(state.heartRateData.avgDailyHR[moment().subtract(1, 'day').format("YYYY-MM-DD")], 1) : 0;
+			
+			let thisWkSum = 0;
+			let thisWkCounter = 0;
+			for(let i = 0; i < 6; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				if(state.heartRateData.avgDailyHR[date]){
+					thisWkCounter++;
+					thisWkSum = thisWkSum + state.heartRateData.avgDailyHR[date];
+				}
+			}
+			const thisWeek = Math.round(thisWkSum/thisWkCounter, 1);
+
+			let lastWkSum = 0;
+			let lastWkCounter = 0;
+			for(let i = 6; i < 13; i ++){
+				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
+				if(state.heartRateData.avgDailyHR[date]){
+					lastWkCounter++;
+					lastWkSum = lastWkSum + state.heartRateData.avgDailyHR[date];
+				}
+			}
+			const lastWeek = Math.round(lastWkSum/lastWkCounter, 1);
+
+
 			const unit = state.heartRateData.unit;
 			let tabData = [
 				{
@@ -139,7 +191,7 @@ export const store = new Vuex.Store({
 		},
 		getMonthSteps: state => {
 			let monthSteps = [state.stepCountData.currentSteps];
-			for(let i = 1; i < 31; i ++){
+			for(let i = 1; i < 30; i ++){
 				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
 				const numSteps = state.stepCountData.totalDailySteps[date] ? state.stepCountData.totalDailySteps[date] : 0;
 				monthSteps.unshift(numSteps);
@@ -203,7 +255,7 @@ export const store = new Vuex.Store({
 			state.heartRateData.unit = "BPM";
 
 			let avgDailyHR = {};
-			for(let i = 0; i < 6; i ++){
+			for(let i = 0; i < 13; i ++){
 				const date = moment().subtract(i, 'day').format("YYYY-MM-DD");
 				let sum = 0;
 				let numVals = 0;

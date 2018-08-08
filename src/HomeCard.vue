@@ -37,11 +37,11 @@
             </div>
             <div class="divider-container">
               <v-layout row justify-center style="margin-bottom: 10px">
-                <v-flex xs1>
-                  <div v-if="showUpIcon(tab)">
+                <v-flex xs1 v-if="showUpIcon(tab) !== false">
+                  <div v-if="showUpIcon(tab) === 'green'">
                     <v-icon large color="green darken-2">arrow_drop_up</v-icon>
                   </div>
-                  <div v-else>
+                  <div v-else-if="showUpIcon(tab) === 'red'">
                     <v-icon large color="red darken-2">arrow_drop_down</v-icon>
                   </div>
                 </v-flex>
@@ -127,7 +127,15 @@ export default {
       return Array.from(Array(n).keys());
     },
     showUpIcon(item){
-      debugger;
+      if(item.title === "This Month"){
+        return false;
+      }
+      else if(item.lastInterval > 0){
+        return "green";
+      }
+      else{
+        return "red";
+      }
       return item.lastInterval > 0;
     }
   },
@@ -142,7 +150,7 @@ export default {
         return lastInt + " " + unit + " from last week."
       }
       else if(item.title === "This Month"){
-        return lastInt + " " + unit + " from last month."
+        return item.totalValue + " " + unit + " in total."
       }
       else if(item.title === "Current"){
         return lastInt + " " + unit + " from last hour."
